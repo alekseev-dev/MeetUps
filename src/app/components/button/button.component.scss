@@ -1,0 +1,32 @@
+@import "variables";
+
+.mdc-button {
+  height: 50px;
+}
+
+.small {
+  width: 70px;
+}
+
+.medium {
+  width: 125px;
+}
+
+.big {
+  width: 160px;
+}
+
+.mat-lilac:not(:disabled) {
+  background-color: $secondary-color;
+  color: $bold-color;
+}
+
+.mat-orange:not(:disabled) {
+  background-color: $accent-color;
+  color: $bold-color;
+}
+
+.mat-grey:not(:disabled) {
+  background-color: $primary-color;
+  color: $secondary-color;
+}

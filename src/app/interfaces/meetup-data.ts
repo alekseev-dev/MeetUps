@@ -1,0 +1,16 @@
+export interface IMeetupData {
+  cardTitle: string,
+  targetTitle: string,
+  targetDescription: string,
+  whatToKnowTitle: string,
+  whatToKnowDescription: string[],
+  whatWillBeTitle: string,
+  whatWillDescription: string[],
+  whyShouldComeTitle: string,
+  whyShouldComeDescription: string,
+  subsCount: number,
+  cardDescription: string,
+  author: string,
+  roomNumber: number,
+  meetTime: string,
+}

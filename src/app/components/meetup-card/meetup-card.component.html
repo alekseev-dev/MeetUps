@@ -1,0 +1,98 @@
+<div>
+  <li>
+    <div
+      class="card">
+      <div class="meetup-header">
+        <p class="meetup-description-title">
+          {{meetupData.cardTitle}}
+        </p>
+        <p
+          class="subs-count">
+          {{meetupData.subsCount}} подписчик
+        </p>
+        <div class="meetup-info-container">
+          <time
+            class="meet-time"
+            datetime="meetupData.meetTime">
+            {{meetupData.meetTime | dateFormat}}
+          </time>
+          <p
+            class="room-number">
+            Переговорная {{meetupData.roomNumber}}
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="meetup-details"
+        [class]="panelOpenState ? 'meetup-details--open' : ''">
+        <div
+          class="meetup-description">
+          <p class="meetup-description-description">
+            <!-- {{panelOpenState ? meetupData.cardDescription : meetupData.cardDescription.slice(0, 200) + '...'}} -->
+            {{meetupData.cardDescription}}
+          </p>
+        </div>
+        <div class="meetup-target">
+          <p
+            class="meetup-target-title">
+            {{meetupData.targetTitle}}
+          </p>
+          <p
+            class="meetup-target-description">
+            {{meetupData.targetDescription}}
+          </p>
+        </div>
+        <div
+          class="meetup-what-to-know">
+          <p
+            class="meetup-what-to-know-title">
+            {{meetupData.whatToKnowTitle}}
+          </p>
+          <ul class="meetup-what-to-know-list">
+            <li *ngFor="let item of meetupData.whatToKnowDescription; index as i">{{i + 1}}. {{item}}</li>
+          </ul>
+        </div>
+        <div
+          class="meetup-what-will-be">
+          <p
+            class="meetup-what-will-be-title">
+            {{meetupData.whatWillBeTitle}}
+          </p>
+          <ul class="meetup-what-to-know-list">
+            <li *ngFor="let item of meetupData.whatWillDescription; index as i">{{i + 1}}. {{item}}</li>
+          </ul>
+        </div>
+        <div class="meetup-why-should-come">
+          <p
+            class="meetup-why-should-come-title">
+            {{meetupData.whyShouldComeTitle}}
+          </p>
+          <p
+            class="meetup-why-should-come-description">
+            {{meetupData.whyShouldComeDescription}}
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="meetup-footer">
+        <p class="author">
+          {{meetupData.author}}
+        </p>
+        <app-button
+          class="accept-button"
+          [color]="'lilac'"
+          [size]="'big'">
+          Я пойду!</app-button>
+        <app-button
+          class="toggle-button"
+          [color]="'orange'"
+          size="small"
+          (click)="toggleCard()">
+          <app-icon iconName="arrow-down"></app-icon>
+        </app-button>
+      </div>
+    </div>
+  </li>
+</div>

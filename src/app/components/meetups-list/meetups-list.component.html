@@ -1,0 +1,7 @@
+<ul>
+  <app-meetup-card
+    *ngFor="let meetupData of meetupsData;
+    trackBy: identify"
+    [meetupData]="meetupData">
+  </app-meetup-card>
+</ul>

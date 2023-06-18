@@ -1,0 +1,140 @@
+@import "variables";
+@import "fonts";
+
+:host {
+  display: block;
+  color: $primary-color;
+  background-color: $default-color;
+  font-size: $middle-text;
+  font-family: $font-main;
+  line-height: 24px;
+  font-weight: 400;
+  border: 0.3px solid $primary-color;
+  padding: 18px 18px 0 18px;
+}
+
+:host:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.meetup-header {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.meetup-description-title {
+  align-self: start;
+  color: $bold-color;
+  font-family: $font-title;
+  font-size: $title-text;
+  margin: 0 10px 0 0;
+}
+
+.meetup-description-description {
+  margin: 0 280px 0 0;
+}
+
+.subs-count {
+  align-self: start;
+  color: $accent-color;
+  margin: 0;
+  line-height: 28px;
+}
+
+.meetup-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.meet-time {
+  color: $bold-color;
+  font-family: $font-title;
+  font-size: $title-text;
+  margin-bottom: 5px;
+}
+
+.room-number {
+  color: $bold-color;
+  font-size: $little-text;
+  margin: 0 0 0 auto;
+}
+
+.meetup-details {
+  max-height: 50px;
+  overflow: hidden;
+  margin: 0 0 20px 0;
+  transition: max-height 3s ease-out;
+}
+
+.meetup-details--open {
+  max-height: none;
+}
+
+.meetup-info-container {
+  margin-left: auto;
+}
+
+.meetup-description,
+.meetup-target,
+.meetup-what-to-know,
+.meetup-what-will-be {
+  margin: 0 0 20px 0;
+}
+
+
+.meetup-target-title,
+.meetup-what-to-know-title,
+.meetup-what-will-be-title,
+.meetup-why-should-come-title {
+  color: $bold-color;
+  font-size: $big-text;
+  line-height: 27px;
+  margin: 0 0 5px 0;
+}
+
+.meetup-target-description,
+.meetup-why-should-come-description,
+.meetup-what-to-know-list,
+.meetup-what-to-know-list {
+  margin: 0;
+  padding: 0 0 0 30px;
+}
+
+.meetup-footer {
+  display: flex;;
+}
+
+.status-button {
+    margin-left: auto;
+}
+
+.author {
+  margin: 0 0 15px 53px;
+  position: relative;
+
+  &::before {
+    content: "";
+    background-image: url('../../../assets/images/login-icon.svg');
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 25px;
+    background-size: 25px 25px;
+    display: inline-block;
+    position: absolute;
+    left: -40px;
+  }
+}
+
+.accept-button {
+  margin-right: 10px;
+  margin-left: auto;
+}
+
+.toggle-button {
+  margin-right: -18px;
+}
