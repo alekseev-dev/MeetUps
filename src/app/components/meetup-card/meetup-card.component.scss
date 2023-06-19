@@ -11,10 +11,10 @@
   font-weight: 400;
   border: 0.3px solid $primary-color;
   padding: 18px 18px 0 18px;
-}
 
-:host:not(:last-child) {
-  margin-bottom: 20px;
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 }
 
 ul {
@@ -69,10 +69,10 @@ ul {
   overflow: hidden;
   margin: 0 0 20px 0;
   transition: max-height 3s ease-out;
-}
 
-.meetup-details--open {
-  max-height: none;
+  &--open {
+    max-height: none;
+  }
 }
 
 .meetup-info-container {
@@ -116,18 +116,16 @@ ul {
 .author {
   margin: 0 0 15px 53px;
   position: relative;
+}
 
-  &::before {
-    content: "";
-    background-image: url('../../../assets/images/login-icon.svg');
-    background-repeat: no-repeat;
-    height: 25px;
-    width: 25px;
-    background-size: 25px 25px;
-    display: inline-block;
-    position: absolute;
-    left: -40px;
-  }
+.login-icon {
+  position: absolute;
+  left: -40px;
+}
+
+:host ::ng-deep .login-icon .mat-icon {
+  height: 25px;
+  width: 25px;
 }
 
 .accept-button {

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
 
+
 @Component({
   selector: 'app-meetup-card',
   templateUrl: './meetup-card.component.html',

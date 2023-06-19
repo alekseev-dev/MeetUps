@@ -2,6 +2,14 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
+export type IconName =
+  'arrow-down-icon' |
+  'arrow-up-icon' |
+  'login-icon' |
+  'logout-icon' |
+  'search-icon' |
+  'settings-icon';
+
 @Component({
   selector: 'app-icon',
   templateUrl: './icon.component.html',
@@ -9,29 +17,24 @@ import { DomSanitizer } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-// const iconPath = {
-//   'arrow-down': "../../../assets/images/arrow-down.svg",
-//   'arrow-up': "../../../assets/images/up.svg",
-// }
 
 export class IconComponent {
-  private _iconName: string = '';
+  private _iconName!: IconName;
 
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
-  ) {
+  ) { }
+
+  @Input() set iconName(icon: IconName) {
+    this._iconName = icon;
     this.matIconRegistry.addSvgIcon(
-      "arrow-down",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../../../assets/images/arrow-down.svg")
+      icon,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(`assets/images/${icon}.svg`)
     );
   }
 
-  @Input() set iconName(icon: string) {
-    this._iconName = icon;
-  }
-
   get iconName() {
-    return this._iconName
+    return this._iconName;
   }
 }

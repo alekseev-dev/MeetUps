@@ -24,13 +24,11 @@
       </div>
 
       <div
-        class="meetup-details"
-        [class]="panelOpenState ? 'meetup-details--open' : ''">
+        [class]="panelOpenState ? 'meetup-details--open' : 'meetup-details'">
         <div
           class="meetup-description">
           <p class="meetup-description-description">
-            <!-- {{panelOpenState ? meetupData.cardDescription : meetupData.cardDescription.slice(0, 200) + '...'}} -->
-            {{meetupData.cardDescription}}
+            {{panelOpenState ? meetupData.cardDescription : meetupData.cardDescription.slice(0, 180) + '...'}}
           </p>
         </div>
         <div class="meetup-target">
@@ -78,6 +76,10 @@
       <div
         class="meetup-footer">
         <p class="author">
+          <app-icon
+            class="login-icon"
+            iconName="login-icon">
+          </app-icon>
           {{meetupData.author}}
         </p>
         <app-button
@@ -90,7 +92,16 @@
           [color]="'orange'"
           size="small"
           (click)="toggleCard()">
-          <app-icon iconName="arrow-down"></app-icon>
+          <ng-container *ngIf="!panelOpenState; else arrowUp">
+            <app-icon
+              iconName="arrow-down-icon">
+            </app-icon>
+          </ng-container>
+          <ng-template #arrowUp>
+            <app-icon
+              iconName="arrow-up-icon">
+            </app-icon>
+          </ng-template>
         </app-button>
       </div>
     </div>

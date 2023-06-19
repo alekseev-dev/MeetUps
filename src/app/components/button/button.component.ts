@@ -1,12 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-// export interface ISize {
-//   small: 'small';
-//   medium: 'medium';
-//   big: 'big';
-// };
-
-export type ISize = 'small' | 'medium' | 'big';
+export type Size = 'small' | 'medium' | 'big';
 
 @Component({
   selector: 'app-button',
@@ -15,16 +9,9 @@ export type ISize = 'small' | 'medium' | 'big';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonComponent {
-  // private _iconUrl: string = '';
-  private _size!: ISize;
+  private _size!: Size;
   private _color: any;
 
-  // @Input() set icon(icon: string) {
-  //   this._iconUrl = icon
-  // }
-  // @Input() set text(text: string) {
-  //   this._text = text;
-  // }
   @Input() set color(color: any) {
     this._color = color;
   }
@@ -33,7 +20,7 @@ export class ButtonComponent {
     return this._color;
   }
 
-  @Input() set size(size: ISize) {
+  @Input() set size(size: Size) {
     this._size = size;
   }
 
