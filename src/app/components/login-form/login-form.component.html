@@ -1,0 +1,49 @@
+<form
+  class="login-form"
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()">
+  <mat-form-field
+    class="login-form-control login-form-control-login">
+    <mat-label>
+      Login
+    </mat-label>
+    <input
+      class="login-form-input"
+      matInput
+      formControlName="login">
+  </mat-form-field>
+
+  <mat-form-field
+    class="login-form-control login-form-control-password">
+    <mat-label>
+      Password
+    </mat-label>
+    <input
+      class="login-form-input"
+      matInput
+      formControlName="password"
+      [type]="hide ? 'password' : 'text'">
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <!-- <mat-error *ngIf="formGroup.hasError('required', 'password')">Это поле обязательно</mat-error> -->
+  </mat-form-field>
+
+  <div
+    class="login-form-submit-container">
+    <p
+      class="login-form-info">
+      How to create account?
+    </p>
+    <app-button
+      class="login-form-submit-button"
+      [color]="'lilac'"
+      [size]="'medium'">
+      Log In</app-button>
+    <!-- <mat-error *ngIf="formError">{{formError}}</mat-error> -->
+  </div>
+</form>

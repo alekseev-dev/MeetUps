@@ -1,0 +1,64 @@
+@import "variables";
+@import "fonts";
+
+.login-form {
+  font-family: $font-main;
+  width: 342px;
+  height: 50px;
+  margin: auto;
+}
+
+.login-form-control {
+  display: block;
+}
+
+.login-form-control-login {
+  margin-bottom: 25px;
+}
+
+.login-form-control-password {
+  margin-bottom: 63px;
+}
+
+:host ::ng-deep .login-form-control mat-label {
+  color: $primary-color;
+  font-size: $middle-text;
+  font-family: $font-main;
+}
+
+:host ::ng-deep .login-form .mat-mdc-text-field-wrapper {
+  background-color: $default-color;
+}
+
+:host ::ng-deep .login-form-control .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+:host ::ng-deep .login-form-control .mdc-text-field__input--focused {
+  color: $info-color;
+}
+
+:host ::ng-deep .login-form-control .mdc-text-field__input {
+  color: $primary-color;
+  font-family: $font-main;
+  font-size: $middle-text;
+}
+
+:host ::ng-deep .login-form-control .mat-mdc-icon-button {
+  color: $primary-color;
+}
+
+.login-form-submit-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-form-info {
+  color: $info-color;
+  width: 150px;
+  margin: 0;
+}
+
+.login-form-submit-button {
+}
