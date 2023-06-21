@@ -1,0 +1,116 @@
+@import "variables";
+@import "fonts";
+
+.header {
+  background-color: $default-color;
+  outline: 0.3px solid $primary-color;
+  outline-offset: -0.3px;
+  display: flex;
+  padding: 23px 40px;
+  align-items: center;
+  min-width: 120px;
+}
+
+.header-left {
+  display: flex;
+}
+
+.header-link {
+  margin-right: 30px;
+}
+
+.header-link-title {
+  font-family: $font-logo;
+  font-size: $logo-text;
+  color: $bold-color;
+  line-height: 76px;
+  margin: 0;
+}
+
+.header-logo-container {
+  margin-right: 80px;
+}
+
+.header-logo-up {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.header-logo-up-image {
+}
+
+.header-logo-down {
+  display: block;
+}
+
+.header-logo-down-image {
+}
+
+.header-nav {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.header-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  gap: 34px;
+  padding: 0;
+  margin: 0 20px 0 0;
+}
+
+.header-nav-item {
+  position: relative;
+  font-family: $font-title;
+  font-size: $title-text;
+  color: $bold-color;
+  line-height: 24px;
+  padding: 10px 5px;
+
+  &--active::after {
+    position: absolute;
+    left: -8px;
+    top: 40px;
+    content: '';
+    display: block;
+    width: 110%;
+    height: 10px;
+    background-color: $accent-color;
+    border-radius: 5px;
+  }
+}
+
+a {
+ text-decoration: none;
+ color: inherit;
+}
+
+.header-nav-user-list {
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  margin-left: auto;
+}
+
+.header-nav-user-item {
+}
+
+.header-nav-user-button {
+  padding: 8px;
+}
+
+.header-nav-user-icon {
+
+}
+
+:host ::ng-deep .header-nav-user-icon .mat-icon {
+  height: 48px;
+  width: 48px;
+}
+
+.test {
+  display: flex;
+}

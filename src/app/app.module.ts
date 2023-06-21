@@ -10,6 +10,7 @@ import { MeetupCardComponent } from './components/meetup-card/meetup-card.compon
 import { MeetupsListComponent } from './components/meetups-list/meetups-list.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaterialModule } from './shared/material/material.module';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MaterialModule } from './shared/material/material.module';
     DateFormatPipe,
     ButtonComponent,
     IconComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
