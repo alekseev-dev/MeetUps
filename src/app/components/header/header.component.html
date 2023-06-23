@@ -4,7 +4,7 @@
     class="header-left">
     <a
       class="header-link"
-      href="#">
+      [routerLink]="AppRoute.Root">
       <h1
         class="header-link-title">
         MeetUps
@@ -39,25 +39,30 @@
   <nav
     class="header-nav">
     <ul
-      class="header-nav-list">
+      class="header-nav-list"
+      *ngIf="user$ | async">
       <li
         class="header-nav-item header-nav-item--active">
         <a
-          href="#">
+          [routerLink]="AppRoute.UserAllMeetups"
+          routerLinkActive="active">
           Все митапы
         </a>
       </li>
       <li
         class="header-nav-item">
         <a
-          href="#">
+          [routerLink]="AppRoute.UserMyMeetups"
+          routerLinkActive="active">
           Мои митапы
         </a>
       </li>
       <li
-        class="header-nav-item">
+        class="header-nav-item"
+        *ngIf="isAdmin">
         <a
-          href="#">
+          [routerLink]="AppRoute.AdminUsersList"
+          routerLinkActive="active">
           Пользователи
         </a>
       </li>
@@ -65,7 +70,8 @@
     <ul
       class="header-nav-user-list">
       <li
-        class="header-nav-user-item">
+        class="header-nav-user-item"
+        *ngIf="user$ | async">
         <app-button
           class="header-nav-user-button">
           <app-icon
@@ -74,16 +80,31 @@
           </app-icon>
         </app-button>
       </li>
+
       <li
         class="header-nav-user-item">
-        <app-button
-          class="header-nav-user-button">
-          <app-icon
-            class="header-nav-user-icon"
-            iconName="login-icon">
-          </app-icon>
-        </app-button>
+        <ng-container *ngIf="user$ | async; else login">
+          <app-button
+            class="header-nav-user-button"
+            (click)="logout()">
+            <app-icon
+              class="header-nav-user-icon"
+              iconName="logout-icon">
+            </app-icon>
+          </app-button>
+        </ng-container>
+        <ng-template #login>
+          <app-button
+            class="header-nav-user-button"
+            [routerLink]="AppRoute.Login">
+            <app-icon
+              class="header-nav-user-icon"
+              iconName="login-icon">
+            </app-icon>
+          </app-button>
+        </ng-template>
       </li>
+
     </ul>
   </nav>
 </header>

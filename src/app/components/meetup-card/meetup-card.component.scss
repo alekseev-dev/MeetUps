@@ -69,10 +69,10 @@ ul {
   max-height: 50px;
   overflow: hidden;
   margin: 0 0 20px 0;
-  transition: max-height 3s ease-out;
+  transition: max-height 1s ease-out;
 
   &--open {
-    max-height: none;
+    max-height: auto;
   }
 }
 

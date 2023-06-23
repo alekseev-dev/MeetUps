@@ -3,7 +3,6 @@ export enum APIRoute {
   UserRole = '/user/role',
   AuthLogin = '/auth/login',
   AuthRegistration = '/auth/registration',
-  Role = '/role',
   Meetup = '/meetup',
 }
 
@@ -11,11 +10,18 @@ export enum AppRoute {
   Root = '',
   Login = 'login',
   Instruction = 'instruction',
-  User = 'user',
-  Admin = 'admin',
-  MyMeetups = 'my-meetups',
-  AllMeetups = 'all-meetups',
-  EditMeetup = 'edit-meetup',
-  CreateMeetup = 'create-meetup',
-  UsersList = 'users-list'
+  UserMyMeetups = 'user/my-meetups',
+  UserAllMeetups = 'user/all-meetups',
+  UserEditMeetup = 'user/edit-meetup',
+  UserCreateMeetup = 'user/create-meetup',
+  AdminMyMeetups = 'admin/user/my-meetups',
+  AdminAllMeetups = 'admin/all-meetups',
+  AdminEditMeetup = 'admin/edit-meetup',
+  AdminCreateMeetup = 'admin/create-meetup',
+  AdminUsersList = 'admin/users-list'
+}
+
+export enum Role {
+  User = 'USER',
+  Admin = 'ADMIN',
 }

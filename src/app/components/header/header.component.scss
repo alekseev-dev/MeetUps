@@ -70,7 +70,7 @@
   line-height: 24px;
   padding: 10px 5px;
 
-  &--active::after {
+.active::after {
     position: absolute;
     left: -8px;
     top: 40px;

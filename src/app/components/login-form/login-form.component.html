@@ -1,7 +1,7 @@
 <form
   class="login-form"
   [formGroup]="formGroup"
-  (ngSubmit)="onSubmit()">
+  (ngSubmit)="login()">
   <mat-form-field
     class="login-form-control login-form-control-login">
     <mat-label>
@@ -10,7 +10,7 @@
     <input
       class="login-form-input"
       matInput
-      formControlName="login">
+      formControlName="email">
   </mat-form-field>
 
   <mat-form-field

@@ -1,20 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { APIRoute } from 'src/assets/const/common';
 import { AppRoute } from '../../assets/const/common';
+import { IUser } from '../interfaces/user';
 import { environment } from './../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private userSubject$: BehaviorSubject<IUser | null>;
+  public userData: Observable<IUser | null>;
 
   constructor(
     private http: HttpClient,
     private router: Router
-  ) { }
+  ) {
+    this.userSubject$ = new BehaviorSubject(this.user);
+    this.userData = this.userSubject$.asObservable();
+  }
 
   public login(email: string, password: string) {
     return this.http
@@ -23,7 +29,8 @@ export class AuthService {
         tap(user => {
           if (user.token) {
             localStorage.setItem('auth_token', user.token);
-            this.router.navigate([`${AppRoute.User}${AppRoute.AllMeetups}`]);
+            this.userSubject$.next(this.user);
+            this.router.navigate([AppRoute.UserMyMeetups]);
           }
 
           return null;
@@ -33,6 +40,7 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('auth_token');
+    this.userSubject$.next(null);
     this.router.navigate([AppRoute.Login]);
   }
 
@@ -56,14 +64,18 @@ export class AuthService {
     return JSON.parse(jsonPayload);
   }
 
-  public get user(): string | null {
-    const token = localStorage.getItem('del_to_do_auth_token');
+  public get user(): IUser | null {
+    const token = localStorage.getItem('auth_token');
     if (token) {
-      const user: string = this.parseJwt(token);
+      const user: IUser = this.parseJwt(token);
       return user;
     } else {
       return null;
     }
+  }
+
+  public get userValue() {
+    return this.userSubject$.value;
   }
 
   public get token(): string | null {
