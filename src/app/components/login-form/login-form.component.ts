@@ -22,7 +22,6 @@ export class LoginFormComponent implements OnInit {
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-    console.log(' this.authService.user:', this.authService.user)
   }
 
   login() {

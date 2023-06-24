@@ -1,0 +1,21 @@
+@import "variables";
+
+:host {
+  font-family: $font-main;
+  line-height: 25px;
+  font-weight: 400;
+  font-size: $middle-text;
+}
+
+.instruction-container {
+  padding: 70px 130px;
+}
+
+p {
+  color: $bold-color;
+  padding: 0;
+
+  &:not(:last-child) {
+    margin: 0 0 20px 0;
+  }
+}

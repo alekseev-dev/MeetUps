@@ -27,7 +27,7 @@ export class AuthService {
           if (user.token) {
             localStorage.setItem('auth_token', user.token);
             this.user$.next(this.user);
-            this.router.navigate([AppRoute.UserMyMeetups]);
+            this.router.navigate([AppRoute.UserAllMeetups]);
           }
 
           return null;
