@@ -1,68 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { APIRoute } from 'src/assets/const/common';
+import { environment } from 'src/environments/environment';
 import { IMeetupData } from '../interfaces/meetup-data';
+import { adaptToClient } from './../../assets/utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MeetupsService {
-  private _meetupsData: IMeetupData[] = [
-    {
-      cardTitle: 'Angular vs React',
-      targetTitle: 'Целевая аудитория',
-      targetDescription: 'разрабы, аналитики, и проч',
-      whatToKnowTitle: 'Что надо знать?',
-      whatToKnowDescription: [
-        'один',
-        'два',
-        'три',
-        'четыре',
-      ],
-      whatWillBeTitle: 'Что будет?',
-      whatWillDescription: [
-        'один',
-        'два',
-        'три',
-        'четыре',
-      ],
-      whyShouldComeTitle: 'Почему надо обязательно прийти?',
-      whyShouldComeDescription: 'У меня красный пояс по C++',
-      subsCount: 200,
-      cardDescription: 'А здесь я ещё более подробно напишу об том, отб этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом.',
-      author: 'Александр Козаченко',
-      roomNumber: 14,
-      meetTime: new Date().toISOString(),
-    },
-    {
-      cardTitle: 'Angular vs React',
-      targetTitle: 'Целевая аудитория',
-      targetDescription: 'разрабы, аналитики, и проч',
-      whatToKnowTitle: 'Что надо знать?',
-      whatToKnowDescription: [
-        'один',
-        'два',
-        'три',
-        'четыре',
-      ],
-      whatWillBeTitle: 'Что будет?',
-      whatWillDescription: [
-        'один',
-        'два',
-        'три',
-        'четыре',
-      ],
-      whyShouldComeTitle: 'Почему надо обязательно прийти?',
-      whyShouldComeDescription: 'У меня красный пояс по C++',
-      subsCount: 200,
-      cardDescription: 'А здесь я ещё более подробно напишу об том, отб этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом. О том, об этом.',
-      author: 'Александр Козаченко',
-      roomNumber: 14,
-      meetTime: new Date().toISOString(),
-    },
-  ];
+  private meetupsSubject = new BehaviorSubject<IMeetupData[]>([]);
+  public meetups$ = this.meetupsSubject.asObservable();
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
-  public get meetupsData() {
-    return this._meetupsData;
-  }
+  public getMeetups() {
+    return this.http
+      .get<IMeetupData[]>(`${environment.apiUrl}${APIRoute.Meetup}`)
+      .subscribe(
+        (meetups => {
+          this.meetupsSubject.next(adaptToClient(meetups));
+          console.log('data', adaptToClient(meetups));
+        }))
+  };
 }

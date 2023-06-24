@@ -9,13 +9,14 @@
   font-family: $font-main;
   line-height: 24px;
   font-weight: 400;
-  outline: 0.3px solid $primary-color;
-  outline-offset: -0.3px;
+  box-shadow: 0 0px 2px 0px $primary-color inset;
   padding: 18px 18px 0 18px;
+  min-height: 162px;
+  margin-bottom: 20px;
+}
 
-  &:not(:last-child) {
-    margin-bottom: 20px;
-  }
+.card-wrapper--isOverdue {
+  opacity: 0.7;
 }
 
 ul {
@@ -34,6 +35,7 @@ ul {
   font-family: $font-title;
   font-size: $title-text;
   margin: 0 10px 0 0;
+  font-weight: 400;
 }
 
 .meetup-description-description {
@@ -57,6 +59,7 @@ ul {
   font-family: $font-title;
   font-size: $title-text;
   margin-bottom: 5px;
+  align-self:flex-end;
 }
 
 .room-number {
@@ -66,13 +69,12 @@ ul {
 }
 
 .meetup-details {
-  max-height: 50px;
+  height: 50px;
   overflow: hidden;
-  margin: 0 0 20px 0;
-  transition: max-height 1s ease-out;
+  margin: 0 0 10px 0;
 
   &--open {
-    max-height: auto;
+    height: auto;
   }
 }
 
@@ -96,6 +98,7 @@ ul {
   font-size: $big-text;
   line-height: 27px;
   margin: 0 0 5px 0;
+  font-weight: 400;
 }
 
 .meetup-target-description,
@@ -107,7 +110,9 @@ ul {
 }
 
 .meetup-footer {
-  display: flex;;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .status-button {
@@ -115,7 +120,7 @@ ul {
 }
 
 .author {
-  margin: 0 0 15px 53px;
+  margin: 0 0 10px 53px;
   position: relative;
 }
 
@@ -129,7 +134,7 @@ ul {
   width: 25px;
 }
 
-.accept-button {
+.status-button {
   margin-right: 10px;
   margin-left: auto;
 }

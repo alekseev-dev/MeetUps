@@ -1,7 +1,14 @@
 <ul>
   <app-meetup-card
-    *ngFor="let meetupData of meetupsData;
+    *ngFor="let meetup of meetups$ | async;
     trackBy: identify"
-    [meetupData]="meetupData">
+    [meetupData]="meetup">
   </app-meetup-card>
 </ul>
+<app-button
+  class="create-button"
+  [color]="'aqua'"
+  [size]="'big'"
+  (click)="createMeetup()">
+  Создать митап
+</app-button>

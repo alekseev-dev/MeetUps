@@ -1,74 +1,78 @@
-<div>
+<div
+  [class]="isOverdue ? 'card-wrapper--isOverdue' : ''">
   <li>
     <div
       class="card">
       <div class="meetup-header">
-        <p class="meetup-description-title">
-          {{meetupData.cardTitle}}
-        </p>
+        <h2 class="meetup-description-title">
+          {{meetupData.name}}
+        </h2>
         <p
           class="subs-count">
-          {{meetupData.subsCount}} подписчик
+          {{1}} подписчик
         </p>
         <div class="meetup-info-container">
           <time
             class="meet-time"
             datetime="meetupData.meetTime">
-            {{meetupData.meetTime | dateFormat}}
+            {{meetupData.time| dateFormat}}
           </time>
           <p
             class="room-number">
-            Переговорная {{meetupData.roomNumber}}
+            Переговорная {{meetupData.location}}
           </p>
         </div>
       </div>
 
       <div
-        [class]="panelOpenState ? 'meetup-details--open' : 'meetup-details'">
+        class="meetup-details"
+        [class]="isCardOpened ? 'meetup-details--open' : ''">
         <div
           class="meetup-description">
           <p class="meetup-description-description">
-            {{panelOpenState ? meetupData.cardDescription : meetupData.cardDescription.slice(0, 180) + '...'}}
+            {{meetupData.description ? meetupData.description : 'Описание митапа отсутствует'}}
           </p>
         </div>
         <div class="meetup-target">
-          <p
+          <h3
             class="meetup-target-title">
-            {{meetupData.targetTitle}}
-          </p>
+            Целевая аудитория
+          </h3>
           <p
             class="meetup-target-description">
-            {{meetupData.targetDescription}}
+            {{meetupData.targetAudience}}
           </p>
         </div>
         <div
           class="meetup-what-to-know">
-          <p
+          <h3
             class="meetup-what-to-know-title">
-            {{meetupData.whatToKnowTitle}}
+            Что надо знать?
+          </h3>
+          <p class="meetup-what-to-know-list">
+            {{meetupData.needToKnow}}
           </p>
-          <ul class="meetup-what-to-know-list">
-            <li *ngFor="let item of meetupData.whatToKnowDescription; index as i">{{i + 1}}. {{item}}</li>
-          </ul>
         </div>
         <div
           class="meetup-what-will-be">
-          <p
+          <h3
             class="meetup-what-will-be-title">
-            {{meetupData.whatWillBeTitle}}
-          </p>
+            Что будет?
+          </h3>
           <ul class="meetup-what-to-know-list">
-            <li *ngFor="let item of meetupData.whatWillDescription; index as i">{{i + 1}}. {{item}}</li>
+            <li>
+              {{meetupData.willHappen}}
+            </li>
           </ul>
         </div>
         <div class="meetup-why-should-come">
-          <p
+          <h3
             class="meetup-why-should-come-title">
-            {{meetupData.whyShouldComeTitle}}
-          </p>
+            Почему надо обязательно прийти?
+          </h3>
           <p
             class="meetup-why-should-come-description">
-            {{meetupData.whyShouldComeDescription}}
+            {{meetupData.reasonToCome}}
           </p>
         </div>
       </div>
@@ -80,29 +84,45 @@
             class="login-icon"
             iconName="login-icon">
           </app-icon>
-          {{meetupData.author}}
+          {{meetupData.owner.fio}}
         </p>
-        <app-button
-          class="accept-button"
-          [color]="'lilac'"
-          [size]="'big'">
-          Я пойду!</app-button>
-        <app-button
-          class="toggle-button"
-          [color]="'orange'"
-          size="small"
-          (click)="toggleCard()">
-          <ng-container *ngIf="!panelOpenState; else arrowUp">
-            <app-icon
-              iconName="arrow-down-icon">
-            </app-icon>
+        <div
+          class="meetup-footer-buttons-container">
+          <ng-container *ngIf="!isOverdue">
+            <ng-container *ngIf="!isUserGoing; else wontGo">
+              <app-button
+                class="status-button"
+                [color]="'lilac'"
+                [size]="'big'"
+                (click)="toggleStatus()">
+                Я пойду!</app-button>
+            </ng-container>
+            <ng-template #wontGo>
+              <app-button
+                class="status-button"
+                [color]="'grey'"
+                [size]="'big'"
+                (click)="toggleStatus()">
+                Не смогу пойти</app-button>
+            </ng-template>
           </ng-container>
-          <ng-template #arrowUp>
-            <app-icon
-              iconName="arrow-up-icon">
-            </app-icon>
-          </ng-template>
-        </app-button>
+          <app-button
+            class="toggle-button"
+            [color]="'orange'"
+            size="small"
+            (click)="toggleCard()">
+            <ng-container *ngIf="!isCardOpened; else arrowUp">
+              <app-icon
+                iconName="arrow-down-icon">
+              </app-icon>
+            </ng-container>
+            <ng-template #arrowUp>
+              <app-icon
+                iconName="arrow-up-icon">
+              </app-icon>
+            </ng-template>
+          </app-button>
+        </div>
       </div>
     </div>
   </li>

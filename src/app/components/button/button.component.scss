@@ -5,6 +5,7 @@
   font-family: $font-main;
   font-size: $middle-text;
   line-height: 25px;
+  letter-spacing: normal;
 }
 
 .small {
@@ -32,4 +33,9 @@
 .mat-grey:not(:disabled) {
   background-color: $primary-color;
   color: $secondary-color;
+}
+
+.mat-aqua:not(:disabled) {
+  background-color: $info-color;
+  color: $bold-color;
 }

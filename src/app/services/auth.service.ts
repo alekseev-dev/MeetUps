@@ -11,16 +11,13 @@ import { environment } from './../../environments/environment.development';
   providedIn: 'root'
 })
 export class AuthService {
-  private userSubject$: BehaviorSubject<IUser | null>;
-  public userData: Observable<IUser | null>;
+  private user$: BehaviorSubject<IUser | null> = new BehaviorSubject(this.user);
+  public userData: Observable<IUser | null> = this.user$.asObservable();
 
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {
-    this.userSubject$ = new BehaviorSubject(this.user);
-    this.userData = this.userSubject$.asObservable();
-  }
+  ) { }
 
   public login(email: string, password: string) {
     return this.http
@@ -29,7 +26,7 @@ export class AuthService {
         tap(user => {
           if (user.token) {
             localStorage.setItem('auth_token', user.token);
-            this.userSubject$.next(this.user);
+            this.user$.next(this.user);
             this.router.navigate([AppRoute.UserMyMeetups]);
           }
 
@@ -40,7 +37,7 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('auth_token');
-    this.userSubject$.next(null);
+    this.user$.next(null);
     this.router.navigate([AppRoute.Login]);
   }
 
@@ -75,7 +72,7 @@ export class AuthService {
   }
 
   public get userValue() {
-    return this.userSubject$.value;
+    return this.user$.value;
   }
 
   public get token(): string | null {

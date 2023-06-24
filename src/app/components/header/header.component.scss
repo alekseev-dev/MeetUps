@@ -3,8 +3,7 @@
 
 .header {
   background-color: $default-color;
-  outline: 0.3px solid $primary-color;
-  outline-offset: -0.3px;
+  box-shadow: 0 0px 2px 0px $primary-color inset;
   display: flex;
   padding: 23px 40px;
   align-items: center;
