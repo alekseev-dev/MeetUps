@@ -8,6 +8,8 @@ export type IconName =
   'login-icon' |
   'logout-icon' |
   'search-icon' |
+  'delete-icon' |
+  'edit-icon' |
   'settings-icon';
 
 @Component({

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export type Size = 'small' | 'medium' | 'big';
+export type Color = 'lilac' | 'orange' | 'grey' | 'aqua';
 
 @Component({
   selector: 'app-button',
@@ -10,7 +11,7 @@ export type Size = 'small' | 'medium' | 'big';
 })
 export class ButtonComponent {
   private _size!: Size;
-  private _color: any;
+  private _color!: Color;
 
   @Input() set color(color: any) {
     this._color = color;

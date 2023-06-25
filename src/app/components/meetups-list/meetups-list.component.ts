@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
@@ -12,7 +13,7 @@ import { AppRoute } from 'src/assets/const/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MeetupsListComponent implements OnInit {
-  private _meetups$!: any;
+  private _meetups$!: Observable<IMeetupData[]>;
 
   constructor(
     private meetupsService: MeetupsService,

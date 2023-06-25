@@ -1,0 +1,12 @@
+<div
+  class="admin-input-container">
+  <mat-form-field
+    class="admin-filed-input"
+    *ngIf="isEditable">
+    <input
+      class="admin-input"
+      matInput
+      [type]="text"
+      [(ngModel)]="text">
+  </mat-form-field>
+</div>

@@ -1,0 +1,56 @@
+<form
+  class="user-list-form"
+  [class]="isEditing ? 'user-list-form--active' : ''">
+  <mat-form-field
+    class="user-list-form-email">
+    <input
+      class="admin-input"
+      [class]="isEditing ? 'user-list-form-email--active' : ''"
+      [value]="'outsidious@yandex.ru'"
+      type="email"
+      [disabled]="!isEditing"
+      matInput>
+  </mat-form-field>
+  <mat-form-field
+    class="user-list-form-password">
+    <input
+      class="admin-input"
+      [class]="isEditing ? 'user-list-form-email--active' : ''"
+      [value]="'outsidious@yandex.ru'"
+      [type]="isEditing ? 'text' : 'password'"
+      [disabled]="!isEditing"
+      matInput>
+  </mat-form-field>
+  <mat-form-field
+    class="user-list-form-status">
+    <mat-select
+      [class]="isEditing ? 'user-list-form-email--active' : ''"
+      [disabled]="!isEditing"
+      [value]="userRole[0]">
+      <mat-option
+        *ngFor="let role of userRole" [value]="role">
+        {{role | lowercase}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div
+    class="user-list-form-edit-button">
+    <button
+      class="delete-button user-list-form-button"
+      mat-button
+      (click)="deleteUser()">
+      <app-icon
+        iconName="delete-icon">
+      </app-icon>
+    </button>
+    <button
+      class="edit-button user-list-form-button"
+      mat-button
+      (click)="editUser()">
+      <app-icon
+        iconName="edit-icon">
+      </app-icon>
+    </button>
+
+  </div>
+</form>

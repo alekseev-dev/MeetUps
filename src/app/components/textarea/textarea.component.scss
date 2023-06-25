@@ -1,0 +1,21 @@
+@import "variables";
+
+.textarea {
+  font-family: $font-main;
+  font-size: $middle-text;
+  line-height: 25px;
+  width: 100%;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  outline: 3px solid $secondary-color;
+  border-radius: 10px;
+  outline-offset: -1px;
+  color: $primary-color;
+  padding: 13px 20px;
+}
+
+.textarea::placeholder {
+  color: $primary-color;
+  opacity: 0.4;
+}

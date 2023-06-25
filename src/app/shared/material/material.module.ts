@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
@@ -15,7 +17,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatButtonModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDividerModule,
   ],
   exports: [
     MatIconModule,
@@ -23,7 +27,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatButtonModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDividerModule,
   ]
 })
 export class MaterialModule { }
