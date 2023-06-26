@@ -25,6 +25,41 @@ export class MeetupsService {
         (meetups => {
           this.meetupsSubject.next(adaptToClient(meetups));
           console.log('data', adaptToClient(meetups));
-        }))
+        })
+      )
   };
+
+  public subscribeToMeetup(idMeetup: number, idUser: number) {
+    return this.http
+      .put<IMeetupData>(`${environment.apiUrl}${APIRoute.Meetup}`, { idMeetup, idUser })
+      .subscribe(
+        (patchedMeetupCard => {
+          const previousValue = this.meetupsSubject.getValue();
+          const index = previousValue.findIndex(item => item.id === idMeetup);
+
+          this.meetupsSubject.next([
+            ...previousValue.slice(0, index),
+            patchedMeetupCard,
+            ...previousValue.slice(index + 1),
+          ])
+        })
+      )
+  }
+
+  public unsubscribeToMeetup(idMeetup: number, idUser: number) {
+    return this.http
+      .delete<IMeetupData>(`${environment.apiUrl}${APIRoute.Meetup}`, { body: { idMeetup, idUser } })
+      .subscribe(
+        (patchedMeetupCard => {
+          const previousValue = this.meetupsSubject.getValue();
+          const index = previousValue.findIndex(item => item.id === idMeetup);
+
+          this.meetupsSubject.next([
+            ...previousValue.slice(0, index),
+            patchedMeetupCard,
+            ...previousValue.slice(index + 1),
+          ])
+        })
+      )
+  }
 }

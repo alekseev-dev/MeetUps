@@ -10,15 +10,11 @@ export enum AppRoute {
   Root = '',
   Login = 'login',
   Instruction = 'instruction',
-  UserMyMeetups = 'user/my-meetups',
-  UserAllMeetups = 'user/all-meetups',
-  UserEditMeetup = 'user/edit-meetup',
-  UserCreateMeetup = 'user/create-meetup',
-  AdminMyMeetups = 'admin/user/my-meetups',
-  AdminAllMeetups = 'admin/all-meetups',
-  AdminEditMeetup = 'admin/edit-meetup',
-  AdminCreateMeetup = 'admin/create-meetup',
-  AdminUsersList = 'admin/users-list'
+  MyMeetups = 'my-meetups',
+  AllMeetups = 'all-meetups',
+  EditMeetup = 'edit-meetup',
+  UserCreateMeetup = 'create-meetup',
+  UsersList = 'users-list'
 }
 
 export enum Role {

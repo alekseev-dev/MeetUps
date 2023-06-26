@@ -11,8 +11,8 @@ import { UserListPageComponent } from './pages/user-list-page/user-list-page.com
 const routes: Routes = [
   { path: AppRoute.Root, component: InstructionPageComponent },
   { path: AppRoute.Login, component: LoginPageComponent },
-  { path: AppRoute.UserAllMeetups, component: AllMeetupsPageComponent, canActivate: [AuthGuard] },
-  { path: AppRoute.AdminUsersList, component: UserListPageComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+  { path: AppRoute.AllMeetups, component: AllMeetupsPageComponent, canActivate: [AuthGuard] },
+  { path: AppRoute.UsersList, component: UserListPageComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: '**', component: NotFoundPageComponent }
 ];
 

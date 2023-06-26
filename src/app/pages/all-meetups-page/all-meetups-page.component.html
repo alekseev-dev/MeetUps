@@ -1,4 +1,11 @@
 <section
   class="all-meetups">
   <app-meetups-list></app-meetups-list>
+  <app-button
+    class="create-button"
+    [color]="'aqua'"
+    [size]="'big'"
+    (click)="createMeetup()">
+    Создать митап
+  </app-button>
 </section>

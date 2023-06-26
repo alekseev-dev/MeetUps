@@ -1,9 +1,8 @@
-import { Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
+import { AuthService } from 'src/app/services/auth.service';
 import { MeetupsService } from 'src/app/services/meetups.service';
-import { AppRoute } from 'src/assets/const/common';
 
 @Component({
   selector: 'app-meetups-list',
@@ -14,16 +13,21 @@ import { AppRoute } from 'src/assets/const/common';
 })
 export class MeetupsListComponent implements OnInit {
   private _meetups$!: Observable<IMeetupData[]>;
+  private _userId!: number;
 
   constructor(
     private meetupsService: MeetupsService,
-    private router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
     this.meetupsService.getMeetups();
     this._meetups$ = this.meetupsService.meetups$;
-    console.log(this._meetups$);
+    this._userId = this.authService.userValue!.id
+  }
+
+  public get userId() {
+    return this._userId;
   }
 
   public get meetups$() {
@@ -34,7 +38,11 @@ export class MeetupsListComponent implements OnInit {
     return item.id;
   }
 
-  createMeetup() {
-    this.router.navigate([AppRoute.UserCreateMeetup])
+  public subscribeToMeetup(idMeetup: number, idUser: number) {
+    this.meetupsService.subscribeToMeetup(idMeetup, idUser)
+  }
+
+  public unsubscribeToMeetup(idMeetup: number, idUser: number) {
+    this.meetupsService.unsubscribeToMeetup(idMeetup, idUser)
   }
 }

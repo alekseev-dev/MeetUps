@@ -44,7 +44,7 @@
       <li
         class="header-nav-item header-nav-item--active">
         <a
-          [routerLink]="AppRoute.UserAllMeetups"
+          [routerLink]="AppRoute.AllMeetups"
           routerLinkActive="active">
           Все митапы
         </a>
@@ -52,7 +52,7 @@
       <li
         class="header-nav-item">
         <a
-          [routerLink]="AppRoute.UserMyMeetups"
+          [routerLink]="AppRoute.MyMeetups"
           routerLinkActive="active">
           Мои митапы
         </a>
@@ -61,7 +61,7 @@
         class="header-nav-item"
         *ngIf="isAdmin">
         <a
-          [routerLink]="AppRoute.AdminUsersList"
+          [routerLink]="AppRoute.UsersList"
           routerLinkActive="active">
           Пользователи
         </a>

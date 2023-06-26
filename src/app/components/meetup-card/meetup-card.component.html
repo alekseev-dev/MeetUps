@@ -17,10 +17,18 @@
             datetime="meetupData.meetTime">
             {{meetupData.time| dateFormat}}
           </time>
-          <p
-            class="room-number">
-            Переговорная {{meetupData.location}}
-          </p>
+          <ng-container *ngIf="isOverdue; else overdue">
+            <p
+              class="room-number room-number-status">
+              Проведено
+            </p>
+          </ng-container>
+          <ng-template #overdue>
+            <p
+              class="room-number">
+              Переговорная {{meetupData.location}}
+            </p>
+          </ng-template>
         </div>
       </div>
 
@@ -89,21 +97,21 @@
         <div
           class="meetup-footer-buttons-container">
           <ng-container *ngIf="!isOverdue">
-            <ng-container *ngIf="!isUserGoing; else wontGo">
-              <app-button
-                class="status-button"
-                [color]="'lilac'"
-                [size]="'big'"
-                (click)="toggleStatus()">
-                Я пойду!</app-button>
-            </ng-container>
-            <ng-template #wontGo>
+            <ng-container *ngIf="isUserGoing; else wontGo">
               <app-button
                 class="status-button"
                 [color]="'grey'"
                 [size]="'big'"
-                (click)="toggleStatus()">
+                (click)="handleUnsubscribeToMeetup()">
                 Не смогу пойти</app-button>
+            </ng-container>
+            <ng-template #wontGo>
+              <app-button
+                class="status-button"
+                [color]="'lilac'"
+                [size]="'big'"
+                (click)="handleSubscribeToMeetup()">
+                Я пойду!</app-button>
             </ng-template>
           </ng-container>
           <app-button

@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppRoute } from 'src/assets/const/common';
 
 @Component({
   selector: 'app-all-meetups-page',
@@ -8,4 +10,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class AllMeetupsPageComponent {
 
+  constructor(
+    private router: Router,
+  ) { }
+
+  createMeetup() {
+    this.router.navigate([AppRoute.UserCreateMeetup])
+  }
 }
