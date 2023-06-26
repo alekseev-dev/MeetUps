@@ -14,8 +14,10 @@ import { IconComponent } from './components/icon/icon.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MeetupCardComponent } from './components/meetup-card/meetup-card.component';
 import { MeetupsListComponent } from './components/meetups-list/meetups-list.component';
+import { NewUserModalWindowComponent } from './components/new-user-modal-window/new-user-modal-window.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 import { AllMeetupsPageComponent } from './pages/all-meetups-page/all-meetups-page.component';
 import { CreateMeetupComponent } from './pages/create-meetup/create-meetup.component';
 import { InstructionPageComponent } from './pages/instruction-page/instruction-page.component';
@@ -25,7 +27,6 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaterialModule } from './shared/material/material.module';
-import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
     TextareaComponent,
     AdminInputComponent,
     UserListComponent,
+    NewUserModalWindowComponent,
   ],
   imports: [
     BrowserModule,

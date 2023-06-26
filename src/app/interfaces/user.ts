@@ -21,3 +21,13 @@ export interface IRole {
   name: Role;
   updatedAt: string;
 };
+
+export interface IUserlistItem {
+  createdAt: string;
+  email: string;
+  fio: string;
+  id: number;
+  password: string;
+  roles: IRole[];
+  updatedAt: string;
+}

@@ -1,4 +1,14 @@
 :host {
   display: block;
-  padding-top: 40px;
+  padding: 40px 20px 100px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-list {
+  margin-bottom: 150px;
+}
+
+.create-user-button {
+  margin-left: auto;
 }

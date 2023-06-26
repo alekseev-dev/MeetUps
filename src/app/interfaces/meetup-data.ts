@@ -27,11 +27,11 @@ export interface IMeetupData {
   time: string;
   duration: number;
   createdBy: number;
-  owner: Owner;
-  users: Owner[];
+  owner: IOwner;
+  users: IOwner[];
 }
 
-interface Owner {
+export interface IOwner {
   id: number;
   email: string;
   password: string;

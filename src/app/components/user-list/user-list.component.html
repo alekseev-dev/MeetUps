@@ -1,1 +1,8 @@
-<app-user-list-item></app-user-list-item>
+<ul>
+  <app-user-list-item
+    class="user-list-item"
+    *ngFor="let user of users$ | async;
+   trackBy:identify"
+    [user]="user">
+  </app-user-list-item>
+</ul>

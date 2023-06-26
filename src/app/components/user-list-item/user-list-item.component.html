@@ -6,7 +6,7 @@
     <input
       class="admin-input"
       [class]="isEditing ? 'user-list-form-email--active' : ''"
-      [value]="'outsidious@yandex.ru'"
+      [value]="user.email"
       type="email"
       [disabled]="!isEditing"
       matInput>
@@ -16,7 +16,7 @@
     <input
       class="admin-input"
       [class]="isEditing ? 'user-list-form-email--active' : ''"
-      [value]="'outsidious@yandex.ru'"
+      [value]="user.password"
       [type]="isEditing ? 'text' : 'password'"
       [disabled]="!isEditing"
       matInput>
@@ -26,7 +26,7 @@
     <mat-select
       [class]="isEditing ? 'user-list-form-email--active' : ''"
       [disabled]="!isEditing"
-      [value]="userRole[0]">
+      [value]="user.roles.at(0)?.name">
       <mat-option
         *ngFor="let role of userRole" [value]="role">
         {{role | lowercase}}
@@ -51,6 +51,5 @@
         iconName="edit-icon">
       </app-icon>
     </button>
-
   </div>
 </form>

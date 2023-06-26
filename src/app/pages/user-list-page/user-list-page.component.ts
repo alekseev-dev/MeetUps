@@ -8,4 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class UserListPageComponent {
 
+  // public createUser(email: string, password: string) {
+
+  // }
 }
