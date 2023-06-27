@@ -1,7 +1,7 @@
 <form
   class="login-form"
   [formGroup]="formGroup"
-  (ngSubmit)="login()">
+  (ngSubmit)=" login()">
   <mat-form-field
     class="login-form-control login-form-control-login">
     <mat-label>
@@ -10,40 +10,49 @@
     <input
       class="login-form-input"
       matInput
+      required
       formControlName="email">
+    <mat-error *ngIf="email?.hasError('required')">Необходимо заполнить поле</mat-error>
+    <mat-error *ngIf="email?.hasError('email')">Email должен быть корректным</mat-error>
   </mat-form-field>
 
   <mat-form-field
-    class="login-form-control login-form-control-password">
+    class=" login-form-control login-form-control-password">
     <mat-label>
       Password
     </mat-label>
     <input
       class="login-form-input"
       matInput
+      required
       formControlName="password"
       [type]="hide ? 'password' : 'text'">
     <button
       mat-icon-button
       matSuffix
       (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">
+      [attr.aria-pressed]="hide"
+      [disabled]="formGroup.invalid">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
-    <!-- <mat-error *ngIf="formGroup.hasError('required', 'password')">Это поле обязательно</mat-error> -->
+    <mat-error *ngIf="password?.hasError('required')">Необходимо заполнить поле</mat-error>
   </mat-form-field>
-
+  <mat-error
+    class="server-error"
+    *ngIf="password?.hasError('required')">
+    Необходимо заполнить поле
+  </mat-error>
   <div
     class="login-form-submit-container">
-    <p
-      class="login-form-info">
+    <a
+      class="login-form-info"
+      [routerLink]="AppRoute.Root">
       How to create account?
-    </p>
+    </a>
     <app-button
       class="login-form-submit-button"
       [color]="'lilac'"
       [size]="'medium'">
       Log In</app-button>
-    <!-- <mat-error *ngIf="formError">{{formError}}</mat-error> -->
   </div>
 </form>
