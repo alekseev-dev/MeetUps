@@ -39,7 +39,7 @@ export class MeetupsService {
 
           this.meetupsSubject.next([
             ...previousValue.slice(0, index),
-            patchedMeetupCard,
+            adaptToClient(patchedMeetupCard),
             ...previousValue.slice(index + 1),
           ])
         })
@@ -56,7 +56,7 @@ export class MeetupsService {
 
           this.meetupsSubject.next([
             ...previousValue.slice(0, index),
-            patchedMeetupCard,
+            adaptToClient(patchedMeetupCard),
             ...previousValue.slice(index + 1),
           ])
         })

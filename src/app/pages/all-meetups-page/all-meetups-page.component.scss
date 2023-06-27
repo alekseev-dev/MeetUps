@@ -1,5 +1,13 @@
+:host {
+  flex-grow: 1;
+  display: flex;
+}
+
 .all-meetups {
   padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .create-button {

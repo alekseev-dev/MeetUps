@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, map } from 'rxjs';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
 import { AuthService } from 'src/app/services/auth.service';
 import { MeetupsService } from 'src/app/services/meetups.service';
+import { AppRoute } from 'src/assets/const/common';
 
 @Component({
   selector: 'app-meetups-list',
@@ -18,11 +20,23 @@ export class MeetupsListComponent implements OnInit {
   constructor(
     private meetupsService: MeetupsService,
     private authService: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.meetupsService.getMeetups();
-    this._meetups$ = this.meetupsService.meetups$;
+
+    if (this.router.url === `/${AppRoute.MyMeetups}`) {
+      this._meetups$ = this.meetupsService.meetups$.pipe(
+        map(
+          meetups => meetups.filter(
+            meetup => meetup.users.some(
+              user => user.id === this._userId)))
+      );
+    } else {
+      this._meetups$ = this.meetupsService.meetups$;
+    }
+
     this._userId = this.authService.userValue!.id
   }
 

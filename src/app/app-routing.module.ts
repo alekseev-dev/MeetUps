@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: AppRoute.Root, component: InstructionPageComponent },
   { path: AppRoute.Login, component: LoginPageComponent },
   { path: AppRoute.AllMeetups, component: AllMeetupsPageComponent, canActivate: [AuthGuard] },
+  { path: AppRoute.MyMeetups, component: AllMeetupsPageComponent, canActivate: [AuthGuard] },
   { path: AppRoute.UsersList, component: UserListPageComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
   { path: '**', component: NotFoundPageComponent }
 ];

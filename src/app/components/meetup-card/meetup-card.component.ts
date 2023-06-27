@@ -1,12 +1,21 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
 
+const openCloseCardAnimation = [
+  trigger('openClose', [
+    state('opened', style({ height: '50px', overflow: 'hidden' })),
+    state('closed', style({ height: '*', overflow: 'hidden' })),
+    transition('opened <=> closed', animate('300ms ease-in-out')),
+  ]),
+]
 
 @Component({
   selector: 'app-meetup-card',
   templateUrl: './meetup-card.component.html',
   styleUrls: ['./meetup-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: openCloseCardAnimation
 })
 export class MeetupCardComponent implements OnInit, OnChanges {
   public isCardOpened = false;
@@ -78,6 +87,6 @@ export class MeetupCardComponent implements OnInit, OnChanges {
   }
 
   public isSubscribed() {
-    this.isUserGoing = this._meetupData.users.some(user => user.id = this._userId)
+    this.isUserGoing = this._meetupData.users.some(user => user.id === this._userId)
   }
 }

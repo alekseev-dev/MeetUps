@@ -34,7 +34,7 @@
 
       <div
         class="meetup-details"
-        [class]="isCardOpened ? 'meetup-details--open' : ''">
+        [@openClose]="isCardOpened ? 'closed' : 'opened'">
         <div
           class="meetup-description">
           <p class="meetup-description-description">

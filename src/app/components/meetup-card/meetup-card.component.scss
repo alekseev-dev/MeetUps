@@ -58,7 +58,7 @@ ul {
   font-family: $font-title;
   font-size: $title-text;
   margin-bottom: 5px;
-  align-self:flex-end;
+  align-self: flex-end;
 }
 
 .room-number {
@@ -72,13 +72,7 @@ ul {
 }
 
 .meetup-details {
-  height: 50px;
-  overflow: hidden;
   margin: 0 0 10px 0;
-
-  &--open {
-    height: auto;
-  }
 }
 
 .meetup-info-container {
