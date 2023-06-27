@@ -1,0 +1,18 @@
+<form
+  class="search-form"
+  [formGroup]="formGroup"
+  (input)="onFormChange()">
+  <mat-form-field
+    class="search-form-control">
+    <input
+      type="text"
+      matInput
+      placeholder="Название, ключевое слово, дата..."
+      formControlName="search">
+    <app-icon
+      class="search-form-icon"
+      matSuffix
+      iconName="search-icon">
+    </app-icon>
+  </mat-form-field>
+</form>

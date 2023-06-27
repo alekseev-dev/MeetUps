@@ -9,10 +9,15 @@ import { AppRoute } from 'src/assets/const/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllMeetupsPageComponent {
+  public searchValue = '';
 
   constructor(
     private router: Router,
   ) { }
+
+  onSearchValue(value: string) {
+    this.searchValue = value;
+  }
 
   createMeetup() {
     this.router.navigate([AppRoute.UserCreateMeetup])

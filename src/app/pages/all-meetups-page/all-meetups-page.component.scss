@@ -4,7 +4,7 @@
 }
 
 .all-meetups {
-  padding: 20px 40px;
+  padding: 100px 40px 20px 40px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -13,4 +13,9 @@
 .create-button {
   display: flex;
   justify-content: end;
+}
+
+.search-form {
+  margin-bottom: 50px;
+  padding: 0 40px 0;
 }

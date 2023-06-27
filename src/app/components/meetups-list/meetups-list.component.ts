@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
 import { AuthService } from 'src/app/services/auth.service';
 import { MeetupsService } from 'src/app/services/meetups.service';
@@ -13,9 +13,10 @@ import { AppRoute } from 'src/assets/const/common';
   providers: [MeetupsService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MeetupsListComponent implements OnInit {
+export class MeetupsListComponent implements OnInit, OnChanges {
   private _meetups$!: Observable<IMeetupData[]>;
   private _userId!: number;
+  private _searchValue = '';
 
   constructor(
     private meetupsService: MeetupsService,
@@ -23,21 +24,46 @@ export class MeetupsListComponent implements OnInit {
     private router: Router,
   ) { }
 
+  ngOnChanges() {
+    this.filterData();
+  }
+
   ngOnInit(): void {
     this.meetupsService.getMeetups();
+    this._userId = this.authService.userValue!.id;
+  }
 
+  @Input() set searchValue(value: string) {
+    this._searchValue = value;
+  }
+
+  filterData(): void {
     if (this.router.url === `/${AppRoute.MyMeetups}`) {
-      this._meetups$ = this.meetupsService.meetups$.pipe(
+      const myMeetups$ = this.meetupsService.meetups$.pipe(
         map(
           meetups => meetups.filter(
             meetup => meetup.users.some(
-              user => user.id === this._userId)))
+              user => user.id === this._userId
+            )
+          )
+        )
       );
-    } else {
-      this._meetups$ = this.meetupsService.meetups$;
-    }
 
-    this._userId = this.authService.userValue!.id
+      this._meetups$ = this.filterDataBySearch(myMeetups$);
+    } else {
+      this._meetups$ = this.filterDataBySearch(this.meetupsService.meetups$);
+    }
+  }
+
+  filterDataBySearch(meetups$: Observable<IMeetupData[]>): Observable<IMeetupData[]> {
+    return meetups$.pipe(
+      map(
+        meetups => meetups.filter(
+          meetup => meetup.name.toLowerCase().includes(this._searchValue)
+        )
+      ),
+      debounceTime(500),
+    );
   }
 
   public get userId() {
@@ -48,7 +74,7 @@ export class MeetupsListComponent implements OnInit {
     return this._meetups$;
   }
 
-  identify(index: number, item: IMeetupData) {
+  identify(index: number, item: IMeetupData): number {
     return item.id;
   }
 

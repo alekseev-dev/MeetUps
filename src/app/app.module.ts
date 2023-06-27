@@ -27,6 +27,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaterialModule } from './shared/material/material.module';
+import { SearchCardFormComponent } from './components/search-card-form/search-card-form.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MaterialModule } from './shared/material/material.module';
     AdminInputComponent,
     UserListComponent,
     NewUserModalWindowComponent,
+    SearchCardFormComponent,
   ],
   imports: [
     BrowserModule,

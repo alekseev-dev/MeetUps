@@ -1,6 +1,11 @@
 <section
   class="all-meetups">
-  <app-meetups-list></app-meetups-list>
+  <app-search-card-form
+    class="search-form"
+    (searchValue)="onSearchValue($event)">
+  </app-search-card-form>
+  <app-meetups-list
+    [searchValue]="searchValue"></app-meetups-list>
   <app-button
     class="create-button"
     [color]="'aqua'"

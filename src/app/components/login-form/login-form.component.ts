@@ -41,12 +41,14 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    const { email, password } = this.formGroup.value
+    const { email, password } = this.formGroup.value;
+
     if (this.formGroup.invalid) {
       Object.keys(this.formGroup.controls).forEach(control => this.formGroup.controls[control].markAsTouched());
 
       return;
     }
+
     this.authService.login(email, password)
       .pipe(take(1))
       .subscribe();
