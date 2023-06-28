@@ -20,6 +20,6 @@ export class AllMeetupsPageComponent {
   }
 
   createMeetup() {
-    this.router.navigate([AppRoute.UserCreateMeetup])
+    this.router.navigate([AppRoute.CreateMeetup])
   }
 }

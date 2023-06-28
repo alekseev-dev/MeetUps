@@ -1,0 +1,24 @@
+@import "variables";
+
+:host {
+  display: flex;
+  flex-grow: 1;
+}
+
+.create-meetup {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px 40px 80px 40px;
+}
+
+.create-meetup-container {
+  background-color: $default-color;
+  padding-bottom: 20px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}

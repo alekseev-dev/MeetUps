@@ -9,25 +9,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminInputComponent } from './components/admin-input/admin-input.component';
 import { ButtonComponent } from './components/button/button.component';
+import { CreateMeetupTextareaComponent } from './components/create-meetup-textarea/create-meetup-textarea.component';
+import { CreateMeetupComponent } from './components/create-meetup/create-meetup.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconComponent } from './components/icon/icon.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MeetupCardComponent } from './components/meetup-card/meetup-card.component';
 import { MeetupsListComponent } from './components/meetups-list/meetups-list.component';
 import { NewUserModalWindowComponent } from './components/new-user-modal-window/new-user-modal-window.component';
-import { TextareaComponent } from './components/textarea/textarea.component';
+import { SearchCardFormComponent } from './components/search-card-form/search-card-form.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { AllMeetupsPageComponent } from './pages/all-meetups-page/all-meetups-page.component';
-import { CreateMeetupComponent } from './pages/create-meetup/create-meetup.component';
+import { CreateMeetupPageComponent } from './pages/create-meetup-page/create-meetup-page.component';
 import { InstructionPageComponent } from './pages/instruction-page/instruction-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { MyMeetupsPageComponent } from './pages/my-meetups-page/my-meetups-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaterialModule } from './shared/material/material.module';
-import { SearchCardFormComponent } from './components/search-card-form/search-card-form.component';
 
 @NgModule({
   declarations: [
@@ -41,17 +41,17 @@ import { SearchCardFormComponent } from './components/search-card-form/search-ca
     AllMeetupsPageComponent,
     LoginPageComponent,
     InstructionPageComponent,
-    MyMeetupsPageComponent,
-    CreateMeetupComponent,
     NotFoundPageComponent,
     LoginFormComponent,
     UserListPageComponent,
     UserListItemComponent,
-    TextareaComponent,
+    CreateMeetupTextareaComponent,
     AdminInputComponent,
     UserListComponent,
     NewUserModalWindowComponent,
     SearchCardFormComponent,
+    CreateMeetupPageComponent,
+    CreateMeetupComponent,
   ],
   imports: [
     BrowserModule,

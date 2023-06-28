@@ -1,0 +1,133 @@
+<form
+  class="create-meetup-form"
+  (input)="test()"
+  [formGroup]="formGroup">
+  <h2
+    class="create-meetup-form-title">Создание митапа</h2>
+  <div
+    class="create-meetup-form-container">
+    <div
+      class="create-meetup-form-name">
+      <label
+        class="label"
+        for="name">Название:</label>
+      <textarea
+        class="textarea"
+        id="name"
+        formControlName="name"
+        placeholder="some text">
+      </textarea>
+    </div>
+    <div
+      class="create-meetup-form-date-time-container">
+      <div
+        class="create-meetup-form-date">
+        <label
+          class="label"
+          for="date">Дата:</label>
+        <textarea
+          class="textarea"
+          id="date"
+          formControlName="date"
+          placeholder="some text">
+      </textarea>
+      </div>
+      <div
+        class="create-meetup-form-time">
+        <label
+          class="label"
+          for="time">Время:</label>
+        <textarea
+          class="textarea"
+          id="time"
+          formControlName="time"
+          placeholder="some text">
+      </textarea>
+      </div>
+    </div>
+    <div
+      class="create-meetup-form-place">
+      <label
+        class="label"
+        for="place">Место:</label>
+      <textarea
+        class="textarea"
+        id="place"
+        formControlName="place"
+        placeholder="some text">
+      </textarea>
+    </div>
+    <div
+      class="create-meetup-form-summary">
+      <label
+        class="label"
+        for="summary">Короткое описание:</label>
+      <textarea
+        class="textarea"
+        id="summary"
+        formControlName="summary"
+        placeholder="some text">
+      </textarea>
+    </div>
+    <div
+      class="create-meetup-form-description">
+      <label
+        class="label"
+        for="description">Подробное описание:</label>
+      <textarea
+        class="textarea"
+        id="description"
+        formControlName="description"
+        placeholder="some text">
+      </textarea>
+    </div>
+    <div
+      class="create-meetup-form-target-audience">
+      <label
+        class="label"
+        for="target-audience">Целевая аудитория</label>
+      <textarea
+        class="textarea"
+        id="target-audience"
+        formControlName="target-audience"
+        placeholder="some text">
+      </textarea>
+    </div>
+    <div
+      class="create-meetup-form-what-to-know">
+      <label
+        class="label"
+        for="what-to-know">Что надо знать?</label>
+      <textarea
+        class="textarea"
+        id="what-to-know"
+        formControlName="what-to-know"
+        placeholder="some text">
+      </textarea>
+    </div>
+    <div
+      class="create-meetup-form-what-will">
+      <label
+        class="label"
+        for="what-will">Что будет?</label>
+      <textarea
+        class="textarea"
+        id="what-will"
+        formControlName="what-will"
+        placeholder="some text">
+      </textarea>
+    </div>
+    <div
+      class="create-meetup-form-why-come">
+      <label
+        class="label"
+        for="why-come">Почему надо обязательно прийти?</label>
+      <textarea
+        class="textarea"
+        id="why-come"
+        formControlName="why-come"
+        placeholder="some text">
+      </textarea>
+    </div>
+  </div>
+</form>

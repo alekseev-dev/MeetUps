@@ -1,0 +1,157 @@
+@import "variables";
+
+.create-meetup-form {
+  padding: 0 180px;
+  margin-bottom: 50px;
+}
+
+.textarea {
+  font-family: $font-main;
+  font-size: $middle-text;
+  line-height: 25px;
+  resize: none;
+  background-color: transparent;
+  border: none;
+  outline: 3px solid $secondary-color;
+  border-radius: 10px;
+  outline-offset: -1px;
+  color: $primary-color;
+  padding: 13px 20px;
+}
+
+.textarea::placeholder {
+  color: $primary-color;
+  opacity: 0.4;
+}
+
+.create-meetup-form-container {
+  display: flex;
+  gap: 45px;
+  flex-direction: column;
+}
+
+.create-meetup-form-title {
+  font-size: $title-text;
+  font-weight: 400;
+  font-family: $font-title;
+  line-height: 25px;
+  color: $bold-color;
+  text-align: center;
+  margin: 20px 0 40px;
+}
+
+.create-meetup-form-container label {
+  font-size: $middle-text;
+  font-weight: 400;
+  font-family: $font-main;
+  line-height: 25px;
+  color: $bold-color;
+  width: 131px;
+  display: flex;
+  margin-right: 35px;
+  flex-shrink: 0;
+}
+
+.create-meetup-form-container textarea {
+  width: 100%;
+}
+
+.create-meetup-form-name {
+  display: flex;
+
+  .label {
+    align-self: center;
+  }
+
+  .textarea {
+    height: 24px;
+    width: 520px;
+  }
+}
+
+.create-meetup-form-date-time-container {
+  display: flex;
+}
+
+.create-meetup-form-date {
+  display: flex;
+  margin-right: 200px;
+
+  .label {
+    align-self: center;
+  }
+
+  .textarea {
+    height: 24px;
+    width: 262px;
+  }
+}
+.create-meetup-form-time {
+  display: flex;
+  flex-grow: 1;
+  .label {
+    width: auto;
+    margin-right: 56px;
+    align-self: center;
+  }
+
+  .textarea {
+    height: 24px;
+    width: 100%;
+  }
+}
+.create-meetup-form-place {
+  display: flex;
+
+  .label {
+    align-self: center;
+  }
+
+  .textarea {
+    height: 24px;
+    width: 520px;
+  }
+}
+.create-meetup-form-summary {
+  display: flex;
+
+  .textarea {
+    height: 76px;
+  }
+}
+.create-meetup-form-description {
+  display: flex;
+
+  .textarea {
+    height: 186px;
+  }
+}
+.create-meetup-form-target-audience {
+  display: flex;
+
+  .textarea {
+    height: 78px;
+  }
+}
+.create-meetup-form-what-to-know {
+  display: flex;
+
+  .textarea {
+    height: 177px;
+  }
+}
+.create-meetup-form-what-will {
+  display: flex;
+
+  .textarea {
+    height: 156px;
+  }
+}
+.create-meetup-form-why-come {
+  display: flex;
+
+  .textarea {
+    height: 78px;
+  }
+}
+

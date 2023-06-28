@@ -12,8 +12,7 @@ export enum AppRoute {
   Instruction = 'instruction',
   MyMeetups = 'my-meetups',
   AllMeetups = 'all-meetups',
-  EditMeetup = 'edit-meetup',
-  UserCreateMeetup = 'create-meetup',
+  CreateMeetup = 'create-meetup',
   UsersList = 'users-list'
 }
 
