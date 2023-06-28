@@ -30,10 +30,6 @@
   background-color: $default-color;
 }
 
-// :host ::ng-deep .login-form-control .mat-mdc-form-field-subscript-wrapper {
-//   display: none;
-// }
-
 :host ::ng-deep .login-form-control .mdc-text-field__input--focused {
   color: $info-color;
 }

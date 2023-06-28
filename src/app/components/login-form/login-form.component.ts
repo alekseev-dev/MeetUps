@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
+import { EmailValidator } from 'src/app/email.validator';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppRoute } from 'src/assets/const/common';
 
@@ -8,7 +9,8 @@ import { AppRoute } from 'src/assets/const/common';
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [EmailValidator]
 })
 export class LoginFormComponent implements OnInit {
   public hide = true;
@@ -18,17 +20,23 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private emailValidator: EmailValidator,
   ) { }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
-      password: new FormControl('', [
-        Validators.required
-      ])
+      email: new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.email
+        ],
+        asyncValidators: [this.emailValidator.validate.bind(this.emailValidator)]
+      }),
+      password: new FormControl('', {
+        validators: [
+          Validators.required
+        ],
+      }),
     });
   }
 
