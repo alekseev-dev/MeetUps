@@ -17,6 +17,11 @@
   outline-offset: -1px;
   color: $primary-color;
   padding: 13px 20px;
+  margin-bottom: 10px;
+}
+
+.textarea:focus {
+  outline: 3px solid $accent-color;
 }
 
 .textarea::placeholder {
@@ -26,8 +31,9 @@
 
 .create-meetup-form-container {
   display: flex;
-  gap: 45px;
+  gap: 40px;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
 .create-meetup-form-title {
@@ -52,8 +58,20 @@
   flex-shrink: 0;
 }
 
-.create-meetup-form-container textarea {
+.create-meetup-form-input-container textarea {
   width: 100%;
+}
+
+.create-meetup-form-input-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+}
+
+.error {
+  position: absolute;
+  top: 100%;
 }
 
 .create-meetup-form-name {
@@ -155,3 +173,6 @@
   }
 }
 
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { Observable, debounceTime, map } from 'rxjs';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
+import { IUser } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { MeetupsService } from 'src/app/services/meetups.service';
 import { AppRoute } from 'src/assets/const/common';
@@ -14,8 +15,8 @@ import { AppRoute } from 'src/assets/const/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MeetupsListComponent implements OnInit, OnChanges {
-  private _meetups$!: Observable<IMeetupData[]>;
-  private _userId!: number;
+  private _meetups$?: Observable<IMeetupData[]>;
+  private _user: IUser | null = null;
   private _searchValue = '';
 
   constructor(
@@ -30,7 +31,7 @@ export class MeetupsListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.meetupsService.getMeetups();
-    this._userId = this.authService.userValue!.id;
+    this._user = this.authService.userValue;
   }
 
   @Input() set searchValue(value: string) {
@@ -43,7 +44,7 @@ export class MeetupsListComponent implements OnInit, OnChanges {
         map(
           meetups => meetups.filter(
             meetup => meetup.users.some(
-              user => user.id === this._userId
+              user => user.id === this._user?.id
             )
           )
         )
@@ -66,8 +67,8 @@ export class MeetupsListComponent implements OnInit, OnChanges {
     );
   }
 
-  public get userId() {
-    return this._userId;
+  public get user() {
+    return this._user;
   }
 
   public get meetups$() {

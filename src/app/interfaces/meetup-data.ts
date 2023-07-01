@@ -20,3 +20,5 @@ export interface IOwner {
   password: string;
   fio: string;
 }
+
+export type TCreateMeetup = Omit<IMeetupData, 'users' | 'owner' | 'createdBy' | 'id'>

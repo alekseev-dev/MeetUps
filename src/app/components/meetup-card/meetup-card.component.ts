@@ -1,6 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
+import { IUser } from 'src/app/interfaces/user';
+import { AppRoute, Role } from 'src/assets/const/common';
 
 const openCloseCardAnimation = [
   trigger('openClose', [
@@ -9,6 +12,8 @@ const openCloseCardAnimation = [
     transition('opened <=> closed', animate('300ms ease-in-out')),
   ]),
 ]
+
+type TButtonStatusState = 'wontGo' | 'willGo' | 'edit';
 
 @Component({
   selector: 'app-meetup-card',
@@ -19,16 +24,20 @@ const openCloseCardAnimation = [
 })
 export class MeetupCardComponent implements OnInit, OnChanges {
   public isCardOpened = false;
-  public isUserGoing = false;
-  public isOverdue!: boolean;
+  public isOverdue = false;
+  public buttonStatusState: TButtonStatusState = 'willGo'
 
   private _meetupData!: IMeetupData;
   private _subscribeToMeetup!: (idMeetup: number, idUser: number) => void;
   private _unsubscribeToMeetup!: (idMeetup: number, idUser: number) => void;
-  private _userId!: number;
+  private _user: IUser | null = null;
 
-  @Input() set userId(id: number) {
-    this._userId = id;
+  constructor(
+    private router: Router,
+  ) { }
+
+  @Input() set user(user: IUser | null) {
+    this._user = user;
   }
 
   @Input() set meetupData(data: IMeetupData) {
@@ -45,18 +54,30 @@ export class MeetupCardComponent implements OnInit, OnChanges {
 
   public handleSubscribeToMeetup() {
     const idMeetup = this._meetupData.id
-    const idUser = this._userId
+    const idUser = this._user?.id
+    if (typeof idUser === 'undefined') {
+      return;
+    }
+
     this._subscribeToMeetup(idMeetup, idUser)
   }
 
   public handleUnsubscribeToMeetup() {
     const idMeetup = this._meetupData.id
-    const idUser = this._userId
+    const idUser = this._user?.id
+    if (typeof idUser === 'undefined') {
+      return;
+    }
+
     this._unsubscribeToMeetup(idMeetup, idUser)
   }
 
+  public editMeetup() {
+    this.router?.navigate([AppRoute.CreateMeetup, this._meetupData])
+  }
+
   ngOnChanges(): void {
-    this.isSubscribed();
+    this.getStatusButtonState();
   }
 
   ngOnInit(): void {
@@ -71,10 +92,6 @@ export class MeetupCardComponent implements OnInit, OnChanges {
     this.isCardOpened = !this.isCardOpened;
   }
 
-  public toggleStatus() {
-    this.isUserGoing = !this.isUserGoing;
-  }
-
   public getOverdue() {
     const currentTime = new Date()
     const diff = currentTime.getTime() - Date.parse(this._meetupData.time);
@@ -86,7 +103,20 @@ export class MeetupCardComponent implements OnInit, OnChanges {
     }
   }
 
-  public isSubscribed() {
-    this.isUserGoing = this._meetupData.users.some(user => user.id === this._userId)
+  public getStatusButtonState() {
+    if (
+      this._meetupData.owner.id === this._user?.id ||
+      this._user?.roles.some(role => role.name === Role.Admin)
+    ) {
+      this.buttonStatusState = 'edit';
+
+      return;
+    }
+
+    if (this._meetupData.users.some(user => user.id === this._user?.id)) {
+      this.buttonStatusState = 'wontGo';
+    } else {
+      this.buttonStatusState = 'willGo';
+    }
   }
 }

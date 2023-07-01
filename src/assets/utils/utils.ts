@@ -14,3 +14,17 @@ export const adaptToClient = (item: unknown): any => {
     ),
   );
 };
+
+export const adaptToServer = (obj: Record<string, any>): Record<string, any> => {
+  const adaptedObj: Record<string, any> = {};
+  for (let key in obj) {
+    const adaptedKey = key.replace(/([A-Z])/g, "_$1").toLowerCase();
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      adaptedObj[adaptedKey] = adaptToServer(obj[key]);
+    } else {
+      adaptedObj[adaptedKey] = obj[key];
+    }
+  }
+
+  return adaptedObj;
+};

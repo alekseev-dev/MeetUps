@@ -14,7 +14,6 @@
       formControlName="email">
     <mat-error *ngIf="email?.hasError('required')">Необходимо заполнить поле</mat-error>
     <mat-error *ngIf="email?.hasError('email')">Email должен быть корректным</mat-error>
-    <mat-error *ngIf="email?.hasError('emailIsInvalid')">Пользователь с таким email уже существует</mat-error>
   </mat-form-field>
   <mat-form-field
     class="login-form-control login-form-control-password">

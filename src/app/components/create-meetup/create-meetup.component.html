@@ -1,9 +1,16 @@
 <form
   class="create-meetup-form"
-  (input)="test()"
-  [formGroup]="formGroup">
-  <h2
-    class="create-meetup-form-title">Создание митапа</h2>
+  [formGroup]="formGroup"
+  (ngSubmit)="createMeetup()">
+  <ng-container *ngIf="isEditing; else create">
+    <h2
+      class="create-meetup-form-title">Редактирование митапа</h2>
+  </ng-container>
+  <ng-template #create>
+    <h2
+      class="create-meetup-form-title">Создание митапа</h2>
+  </ng-template>
+
   <div
     class="create-meetup-form-container">
     <div
@@ -11,12 +18,20 @@
       <label
         class="label"
         for="name">Название:</label>
-      <textarea
-        class="textarea"
-        id="name"
-        formControlName="name"
-        placeholder="some text">
-      </textarea>
+      <div
+        class="create-meetup-form-input-container">
+        <input
+          class="textarea"
+          type="text"
+          id="name"
+          required
+          autocomplete="off"
+          formControlName="name"
+          placeholder="Зачем нужно учить алгоритмы?">
+        <mat-error
+          class="error"
+          *ngIf="name?.touched && name?.hasError('required')">Необходимо заполнить поле</mat-error>
+      </div>
     </div>
     <div
       class="create-meetup-form-date-time-container">
@@ -25,24 +40,38 @@
         <label
           class="label"
           for="date">Дата:</label>
-        <textarea
-          class="textarea"
-          id="date"
-          formControlName="date"
-          placeholder="some text">
-      </textarea>
+        <div
+          class="create-meetup-form-input-container">
+          <input
+            class="textarea"
+            type="date"
+            id="date"
+            required
+            autocomplete="off"
+            formControlName="date">
+          <mat-error
+            class="error"
+            *ngIf="date?.touched && date?.hasError('required')">Необходимо заполнить поле</mat-error>
+        </div>
       </div>
       <div
         class="create-meetup-form-time">
         <label
           class="label"
           for="time">Время:</label>
-        <textarea
-          class="textarea"
-          id="time"
-          formControlName="time"
-          placeholder="some text">
-      </textarea>
+        <div
+          class="create-meetup-form-input-container">
+          <input
+            class="textarea"
+            type="time"
+            id="time"
+            required
+            autocomplete="off"
+            formControlName="time">
+          <mat-error
+            class="error"
+            *ngIf="time?.touched && time?.hasError('required')">Необходимо заполнить поле</mat-error>
+        </div>
       </div>
     </div>
     <div
@@ -50,84 +79,115 @@
       <label
         class="label"
         for="place">Место:</label>
-      <textarea
-        class="textarea"
-        id="place"
-        formControlName="place"
-        placeholder="some text">
-      </textarea>
-    </div>
-    <div
-      class="create-meetup-form-summary">
-      <label
-        class="label"
-        for="summary">Короткое описание:</label>
-      <textarea
-        class="textarea"
-        id="summary"
-        formControlName="summary"
-        placeholder="some text">
-      </textarea>
+      <div
+        class="create-meetup-form-input-container">
+        <input
+          class="textarea"
+          type="text"
+          id="place"
+          required
+          autocomplete="off"
+          formControlName="place"
+          placeholder="№7">
+        <mat-error
+          class="error"
+          *ngIf="place?.touched && place?.hasError('required')">Необходимо заполнить поле</mat-error>
+      </div>
     </div>
     <div
       class="create-meetup-form-description">
       <label
         class="label"
-        for="description">Подробное описание:</label>
-      <textarea
-        class="textarea"
-        id="description"
-        formControlName="description"
-        placeholder="some text">
-      </textarea>
+        for="description">Описание:</label>
+      <div
+        class="create-meetup-form-input-container">
+        <textarea
+          class="textarea"
+          id="description"
+          required
+          formControlName="description"
+          placeholder="Описание...">
+        </textarea>
+        <mat-error
+          class="error"
+          *ngIf="description?.touched && description?.hasError('required')">Необходимо заполнить поле</mat-error>
+      </div>
     </div>
     <div
       class="create-meetup-form-target-audience">
       <label
         class="label"
         for="target-audience">Целевая аудитория</label>
-      <textarea
-        class="textarea"
-        id="target-audience"
-        formControlName="target-audience"
-        placeholder="some text">
-      </textarea>
+      <div
+        class="create-meetup-form-input-container">
+        <textarea
+          class="textarea"
+          id="target-audience"
+          required
+          formControlName="target-audience"
+          placeholder="Литкодеры">
+        </textarea>
+        <mat-error
+          class="error"
+          *ngIf="targetAudience?.touched && targetAudience?.hasError('required')">Необходимо заполнить поле</mat-error>
+      </div>
     </div>
     <div
       class="create-meetup-form-what-to-know">
       <label
         class="label"
         for="what-to-know">Что надо знать?</label>
-      <textarea
-        class="textarea"
-        id="what-to-know"
-        formControlName="what-to-know"
-        placeholder="some text">
-      </textarea>
+      <div
+        class="create-meetup-form-input-container">
+        <textarea
+          class="textarea"
+          id="what-to-know"
+          required
+          formControlName="what-to-know"
+          placeholder="Алгоритмы и структуры данных">
+        </textarea>
+        <mat-error
+          class="error"
+          *ngIf="whatToKnow?.touched && whatToKnow?.hasError('required')">Необходимо заполнить поле</mat-error>
+      </div>
     </div>
     <div
       class="create-meetup-form-what-will">
       <label
         class="label"
         for="what-will">Что будет?</label>
-      <textarea
-        class="textarea"
-        id="what-will"
-        formControlName="what-will"
-        placeholder="some text">
-      </textarea>
+      <div
+        class="create-meetup-form-input-container">
+        <textarea
+          class="textarea"
+          id="what-will"
+          required
+          formControlName="what-will"
+          placeholder="12 часов беспрерывного кодинга">
+        </textarea>
+        <mat-error
+          class="error"
+          *ngIf="whatWill?.touched && whatWill?.hasError('required')">Необходимо заполнить поле</mat-error>
+      </div>
     </div>
     <div
       class="create-meetup-form-why-come">
       <label
         class="label"
         for="why-come">Почему надо обязательно прийти?</label>
-      <textarea
-        class="textarea"
-        id="why-come"
-        formControlName="why-come"
-        placeholder="some text">
-      </textarea>
+      <div
+        class="create-meetup-form-input-container">
+        <textarea
+          class="textarea"
+          id="why-come"
+          required
+          formControlName="why-come"
+          placeholder="Чтобы успешно пройти собеседование">
+        </textarea>
+        <mat-error
+          class="error"
+          *ngIf="whyCome?.touched && whyCome?.hasError('required')">Необходимо заполнить поле</mat-error>
+      </div>
     </div>
   </div>
 </form>

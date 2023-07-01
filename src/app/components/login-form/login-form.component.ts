@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { take } from 'rxjs';
-import { EmailValidator } from 'src/app/email.validator';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppRoute } from 'src/assets/const/common';
 
@@ -10,7 +10,6 @@ import { AppRoute } from 'src/assets/const/common';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [EmailValidator]
 })
 export class LoginFormComponent implements OnInit {
   public hide = true;
@@ -20,8 +19,12 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private emailValidator: EmailValidator,
-  ) { }
+    private router: Router,
+  ) {
+    if (this.authService.userValue) {
+      this.router.navigate([AppRoute.Root]);
+    }
+  }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
@@ -30,7 +33,6 @@ export class LoginFormComponent implements OnInit {
           Validators.required,
           Validators.email
         ],
-        asyncValidators: [this.emailValidator.validate.bind(this.emailValidator)]
       }),
       password: new FormControl('', {
         validators: [
@@ -49,13 +51,12 @@ export class LoginFormComponent implements OnInit {
   }
 
   login() {
-    const { email, password } = this.formGroup.value;
-
     if (this.formGroup.invalid) {
       Object.keys(this.formGroup.controls).forEach(control => this.formGroup.controls[control].markAsTouched());
 
       return;
     }
+    const { email, password } = this.formGroup.value;
 
     this.authService.login(email, password)
       .pipe(take(1))

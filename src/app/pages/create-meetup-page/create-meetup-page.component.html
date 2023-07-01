@@ -2,27 +2,44 @@
   class="create-meetup">
   <div
     class="create-meetup-container">
-    <app-create-meetup></app-create-meetup>
+    <app-create-meetup
+      #createMeetup
+      [meetupData]="meetupData"
+      [isEditing]="isEditing"></app-create-meetup>
     <div
       class="buttons-container">
-      <app-button
+      <app-button *ngIf="isEditing"
         class="delete-button create-meetup-button"
         [color]="'orange'"
-        [size]="'big'">
+        [size]="'big'"
+        (click)="onDeleteMeetupMethod()">
         Удалить
       </app-button>
       <app-button
         class="cancel-button create-meetup-button"
         [color]="'grey'"
-        [size]="'big'">
+        [size]="'big'"
+        (click)="redirectToBack()">
         Отмена
       </app-button>
-      <app-button
-        class="save-button create-meetup-button"
-        [color]="'lilac'"
-        [size]="'big'">
-        Сохранить
-      </app-button>
+      <ng-container *ngIf="isEditing; else create">
+        <app-button
+          class="save-button create-meetup-button"
+          [color]="'lilac'"
+          [size]="'big'"
+          (click)="onSaveMeetupMethod()">
+          Сохранить
+        </app-button>
+      </ng-container>
+      <ng-template #create>
+        <app-button
+          class="save-button create-meetup-button"
+          [color]="'lilac'"
+          [size]="'big'"
+          (click)="onCreateMeetupMethod()">
+          Создать
+        </app-button>
+      </ng-template>
     </div>
   </div>
 </section>

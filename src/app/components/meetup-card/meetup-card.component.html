@@ -96,24 +96,40 @@
         </p>
         <div
           class="meetup-footer-buttons-container">
+
           <ng-container *ngIf="!isOverdue">
-            <ng-container *ngIf="isUserGoing; else wontGo">
-              <app-button
-                class="status-button"
-                [color]="'grey'"
-                [size]="'big'"
-                (click)="handleUnsubscribeToMeetup()">
-                Не смогу пойти</app-button>
+            <ng-container [ngSwitch]="buttonStatusState">
+              <ng-template
+                ngSwitchCase="wontGo">
+                <app-button
+                  class="status-button"
+                  [color]="'grey'"
+                  [size]="'big'"
+                  (click)="handleUnsubscribeToMeetup()">
+                  Не смогу пойти</app-button>
+              </ng-template>
+
+              <ng-template
+                ngSwitchCase="willGo">
+                <app-button
+                  class="status-button"
+                  [color]="'lilac'"
+                  [size]="'big'"
+                  (click)="handleSubscribeToMeetup()">
+                  Я пойду!</app-button>
+              </ng-template>
+              <ng-template
+                ngSwitchCase="edit">
+                <app-button
+                  class="status-button"
+                  [color]="'lilac'"
+                  [size]="'big'"
+                  (click)="editMeetup()">
+                  Редактировать</app-button>
+              </ng-template>
             </ng-container>
-            <ng-template #wontGo>
-              <app-button
-                class="status-button"
-                [color]="'lilac'"
-                [size]="'big'"
-                (click)="handleSubscribeToMeetup()">
-                Я пойду!</app-button>
-            </ng-template>
           </ng-container>
+
           <app-button
             class="toggle-button"
             [color]="'orange'"
