@@ -7,10 +7,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AdminInputComponent } from './components/admin-input/admin-input.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CreateMeetupTextareaComponent } from './components/create-meetup-textarea/create-meetup-textarea.component';
 import { CreateMeetupComponent } from './components/create-meetup/create-meetup.component';
+import { CreateNewUserModalComponent } from './components/create-new-user-modal/create-new-user-modal.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconComponent } from './components/icon/icon.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
@@ -46,12 +46,12 @@ import { MaterialModule } from './shared/material/material.module';
     UserListPageComponent,
     UserListItemComponent,
     CreateMeetupTextareaComponent,
-    AdminInputComponent,
     UserListComponent,
     NewUserModalWindowComponent,
     SearchCardFormComponent,
     CreateMeetupPageComponent,
     CreateMeetupComponent,
+    CreateNewUserModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 <form
   class="user-list-form"
-  [class]="isEditing ? 'user-list-form--active' : ''">
+  [class]="isEditing ? 'user-list-form--active' : ''"
+  [formGroup]="formGroup">
   <mat-form-field
     class="user-list-form-email">
     <input
@@ -8,6 +9,9 @@
       [class]="isEditing ? 'user-list-form-email--active' : ''"
       [value]="user.email"
       type="email"
+      required
+      autocomplete="off"
+      formControlName="email"
       [disabled]="!isEditing"
       matInput>
   </mat-form-field>
@@ -18,6 +22,9 @@
       [class]="isEditing ? 'user-list-form-email--active' : ''"
       [value]="user.password"
       [type]="isEditing ? 'text' : 'password'"
+      required
+      autocomplete="off"
+      formControlName="password"
       [disabled]="!isEditing"
       matInput>
   </mat-form-field>
@@ -26,9 +33,15 @@
     <mat-select
       [class]="isEditing ? 'user-list-form-email--active' : ''"
       [disabled]="!isEditing"
-      [value]="user.roles.at(0)?.name">
+      required
+      autocomplete="off"
+      formControlName="role"
+      [(ngModel)]="hasRoles"
+      [compareWith]="compareRoles"
+      multiple>
       <mat-option
-        *ngFor="let role of userRole" [value]="role">
+        *ngFor="let role of userRole; index as i"
+        [value]="role">
         {{role | lowercase}}
       </mat-option>
     </mat-select>
@@ -46,10 +59,15 @@
     <button
       class="edit-button user-list-form-button"
       mat-button
-      (click)="editUser()">
+      (click)="updateUserInfo()">
       <app-icon
         iconName="edit-icon">
       </app-icon>
     </button>
   </div>
 </form>
+
+<!-- <mat-option
+*ngFor="let role of userRole" [value]="role">
+{{role | lowercase}}
+</mat-option> -->

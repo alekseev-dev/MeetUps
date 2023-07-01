@@ -41,9 +41,10 @@ export class AuthService {
     this.router.navigate([AppRoute.Login]);
   }
 
-  public registration(email: string, password: string) {
+  public registration(email: string, password: string, fio: string) {
+    console.log(email, password);
     return this.http
-      .post<{}>(`${environment.apiUrl}${APIRoute.AuthRegistration}`, { email, password });
+      .post<{}>(`${environment.apiUrl}${APIRoute.AuthRegistration}`, { email, password, fio });
   }
 
   public parseJwt(token: string) {

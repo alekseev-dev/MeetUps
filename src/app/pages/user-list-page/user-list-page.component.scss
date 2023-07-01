@@ -1,12 +1,14 @@
 :host {
-  display: block;
-  padding: 40px 20px 100px 20px;
+  padding: 40px 20px 40px 20px;
+}
+
+.user-list-container {
   display: flex;
   flex-direction: column;
 }
 
 .user-list {
-  margin-bottom: 150px;
+  margin-bottom: 40px;
 }
 
 .create-user-button {

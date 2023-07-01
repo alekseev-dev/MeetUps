@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateNewUserModalComponent } from 'src/app/components/create-new-user-modal/create-new-user-modal.component';
 
 @Component({
   selector: 'app-user-list-page',
@@ -7,8 +9,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserListPageComponent {
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
-  // public createUser(email: string, password: string) {
-
-  // }
+  openModal(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(CreateNewUserModalComponent, {
+      width: '400px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
 }

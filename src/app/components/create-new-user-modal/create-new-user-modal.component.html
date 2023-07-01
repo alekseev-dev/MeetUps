@@ -1,0 +1,75 @@
+<h3
+  class="modal-title"
+  mat-dialog-title>
+  Создание нового пользователя
+</h3>
+<form
+  class="modal-form"
+  [formGroup]="formGroup"
+  mat-dialog-content>
+  <mat-form-field
+    class="modal-form-field">
+    <mat-label>
+      Email
+    </mat-label>
+    <input
+      class="modal-form-email"
+      type="email"
+      required
+      autocomplete="off"
+      formControlName="email"
+      placeholder="test@mail.ru"
+      matInput>
+    <mat-error *ngIf="email?.touched && email?.hasError('required')">Необходимо заполнить поле</mat-error>
+    <mat-error *ngIf="email?.touched && email?.hasError('email')">Email должен быть корректным</mat-error>
+  </mat-form-field>
+  <mat-form-field
+    class="modal-form-field">
+    <mat-label>
+      Password
+    </mat-label>
+    <input
+      class="modal-form-password"
+      type="text"
+      matInput
+      required
+      autocomplete="off"
+      placeholder="6N9bzE1P"
+      formControlName="password">
+    <mat-error *ngIf="password?.touched && password?.hasError('required')">Необходимо заполнить поле</mat-error>
+  </mat-form-field>
+  <mat-form-field
+    class="modal-form-field">
+    <mat-label>
+      ФИО
+    </mat-label>
+    <input
+      class="modal-form-password"
+      type="text"
+      matInput
+      required
+      autocomplete="off"
+      placeholder="Адам Абронс"
+      formControlName="fio">
+    <mat-error *ngIf="fio?.touched && fio?.hasError('required')">Необходимо заполнить поле</mat-error>
+  </mat-form-field>
+</form>
+<div
+  class="modal-form-buttons"
+  mat-dialog-actions>
+  <app-button
+    mat-dialog-close
+    class="modal-form-cancel-button"
+    [color]="'grey'"
+    [size]="'medium'">
+    Отмена
+  </app-button>
+  <app-button
+    cdkFocusInitial
+    class="modal-form-create-button"
+    [color]="'lilac'"
+    [size]="'medium'"
+    (click)="createNewUser()">
+    Создать
+  </app-button>
+</div>

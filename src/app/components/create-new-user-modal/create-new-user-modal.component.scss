@@ -1,0 +1,57 @@
+@import "variables";
+
+:host {
+  display: block;
+  background-color: $default-color;
+  padding: 25px;
+}
+
+.modal-title {
+display: flex;
+  align-self: center;
+  justify-content: center;
+  font-family: $font-main;
+  font-size: $middle-text;
+  color: $bold-color;
+  line-height: 25px;
+  letter-spacing: normal;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 10px 0
+}
+
+.modal-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.modal-form-cancel-button {
+  margin-right: 15px;
+}
+
+
+:host ::ng-deep .mat-mdc-text-field-wrapper {
+    border-radius: 7px;
+}
+
+:host ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label,
+:host ::ng-deep .mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field__input {
+  font-family: $font-main;
+  font-size: $middle-text;
+  color: $default-color;
+  line-height: 25px;
+  letter-spacing: normal;
+}
+
+:host ::ng-deep .mdc-line-ripple {
+  display: none;
+}
+
+:host ::ng-deep .mdc-menu-surface {
+  border-radius: 7px;
+}

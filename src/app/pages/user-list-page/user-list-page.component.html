@@ -1,11 +1,13 @@
-<section>
+<section
+  class="user-list-container">
   <app-user-list
     class="user-list">
   </app-user-list>
   <app-button
     class="create-user-button"
     [color]="'aqua'"
-    [size]="'big'">
+    [size]="'big'"
+    (click)="openModal('300ms', '300ms')">
     Add new user
   </app-button>
 </section>

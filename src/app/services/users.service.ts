@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { APIRoute, Role } from 'src/assets/const/common';
-import { IUserlistItem } from '../interfaces/user';
+import { APIRoute } from 'src/assets/const/common';
+import { IUserItemDelete, IUserlistItem } from '../interfaces/user';
 import { environment } from './../../environments/environment.development';
 
 @Injectable({
@@ -25,19 +25,30 @@ export class UsersService {
         }))
   };
 
-  public createUser(email: string, password: string, role: Role) {
-    const users = this.usersSubject.getValue()
+  public deleteUser(id: number) {
+    return this.http
+      .delete<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { body: { id } })
+      .subscribe(user => {
+        const previousValue = this.usersSubject.getValue();
+        const updatedValue = previousValue.filter(item => item.id !== user.id);
 
-    users.push({
-      createdAt: '',
-      email: '',
-      fio: '',
-      id: 1,
-      password: '',
-      roles: [],
-      updatedAt: '',
-    })
-    console.log('users:', users)
-    this.usersSubject.next(users)
-  }
+        this.usersSubject.next(updatedValue);
+      })
+  };
+
+  public updateUserInfo(id: number, email: string, password: string, fio: string) {
+    return this.http
+      .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { email, password, fio })
+      .subscribe(user => {
+        console.log(user);
+      })
+  };
+
+  // public updateUserRole(id: number, email: string, password: string, fio: string) {
+  //   return this.http
+  //     .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { email, password, fio })
+  //     .subscribe(user => {
+  //       console.log(user);
+  //     })
+  // };
 }

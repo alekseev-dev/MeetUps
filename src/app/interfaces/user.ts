@@ -31,3 +31,5 @@ export interface IUserlistItem {
   roles: IRole[];
   updatedAt: string;
 }
+
+export type IUserItemDelete = Omit<IUserlistItem, 'roles'>
