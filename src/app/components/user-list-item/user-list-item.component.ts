@@ -20,7 +20,7 @@ interface IUserItemForm {
 export class UserListItemComponent {
   public userRole: Role[] = Object.values(Role);
   public isEditing = false;
-  public hasRoles: boolean[] = [];
+  public hasRoles: Role[] = [];
   private _user!: IUserlistItem;
   public formGroup!: FormGroup;
 
@@ -71,19 +71,16 @@ export class UserListItemComponent {
     return this._user;
   }
 
-  compareRoles(role1: any, role2: any): boolean {
-    return role1 && role2 ? role1.name === role2.name : role1 === role2;
+  compareRoles(role1: Role, role2: Role): boolean {
+    return role1 && role2 ? role1 === role2 : role1 === role2;
   }
 
   getUserRoles() {
     this.userRole.forEach(userRole => {
-      this._user.roles.forEach(role => {
-        if (role.name === userRole) {
-          this.hasRoles.push(true);
-        } else {
-          this.hasRoles.push(false);
-        }
-      })
+      const roleExists = this._user.roles.some(role => role.name === userRole);
+      if (roleExists) {
+        this.hasRoles.push(userRole);
+      }
     });
   }
 
