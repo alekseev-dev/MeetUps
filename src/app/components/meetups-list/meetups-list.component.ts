@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, debounceTime, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
 import { IUser } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -38,6 +38,10 @@ export class MeetupsListComponent implements OnInit, OnChanges {
     this._searchValue = value;
   }
 
+  get searchValue() {
+    return this._searchValue
+  }
+
   filterData(): void {
     if (this.router.url === `/${AppRoute.MyMeetups}`) {
       const myMeetups$ = this.meetupsService.meetups$.pipe(
@@ -50,21 +54,10 @@ export class MeetupsListComponent implements OnInit, OnChanges {
         )
       );
 
-      this._meetups$ = this.filterDataBySearch(myMeetups$);
+      this._meetups$ = myMeetups$;
     } else {
-      this._meetups$ = this.filterDataBySearch(this.meetupsService.meetups$);
+      this._meetups$ = this.meetupsService.meetups$;
     }
-  }
-
-  filterDataBySearch(meetups$: Observable<IMeetupData[]>): Observable<IMeetupData[]> {
-    return meetups$.pipe(
-      map(
-        meetups => meetups.filter(
-          meetup => meetup.name.toLowerCase().includes(this._searchValue)
-        )
-      ),
-      debounceTime(500),
-    );
   }
 
   public get user() {

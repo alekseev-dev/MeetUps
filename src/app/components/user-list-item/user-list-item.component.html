@@ -30,13 +30,9 @@
     class="user-list-form-status">
     <mat-select
       [class]="isEditing ? 'user-list-form-email--active' : ''"
-      required
       autocomplete="off"
       formControlName="role"
-      [(ngModel)]="hasRoles"
-      [compareWith]="compareRoles"
-      (selectionChange)="updateUserRole()"
-      multiple>
+      (selectionChange)="updateUserRole()">
       <mat-option
         *ngFor="let role of userRole; index as i"
         [value]="role">
@@ -64,22 +60,3 @@
     </button>
   </div>
 </form>
-
-<!-- <mat-form-field
-    class="user-list-form-status">
-    <mat-select
-      [class]="isEditing ? 'user-list-form-email--active' : ''"
-      required
-      autocomplete="off"
-      formControlName="role"
-      [(ngModel)]="hasRoles"
-      [compareWith]="compareRoles"
-      (selectionChange)="updateUserRole()"
-      multiple>
-      <mat-option
-        *ngFor="let role of userRole; index as i"
-        [value]="role">
-        {{role | lowercase}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> -->

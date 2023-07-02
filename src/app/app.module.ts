@@ -30,6 +30,7 @@ import { UserListPageComponent } from './pages/user-list-page/user-list-page.com
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { MaterialModule } from './shared/material/material.module';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { FilterDataPipe } from './pipes/filter-data.pipe';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     CreateMeetupComponent,
     CreateNewUserModalComponent,
     SpinnerComponent,
+    FilterDataPipe,
   ],
   imports: [
     BrowserModule,

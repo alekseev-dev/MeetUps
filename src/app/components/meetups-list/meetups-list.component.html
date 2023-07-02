@@ -1,7 +1,7 @@
 <ul>
   <app-meetup-card
     class="meetup-card"
-    *ngFor="let meetup of meetups$ | async;
+    *ngFor="let meetup of meetups$ | async | filterDataPipe: searchValue;
     trackBy: identify"
     [meetupData]="meetup"
     [subscribeToMeetup]="subscribeToMeetup.bind(this)"

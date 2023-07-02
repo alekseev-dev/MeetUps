@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, DoCheck, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUserlistItem } from 'src/app/interfaces/user';
 import { UsersService } from 'src/app/services/users.service';
 import { Role } from 'src/assets/const/common';
@@ -17,10 +17,9 @@ interface IUserItemForm {
   styleUrls: ['./user-list-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserListItemComponent implements OnInit, DoCheck {
+export class UserListItemComponent implements OnInit {
   public userRole: Role[] = Object.values(Role);
   public isEditing = false;
-  public hasRoles: Role[] = [];
   private _user!: IUserlistItem;
   public formGroup!: FormGroup;
   public plugPassword = 'randompassword';
@@ -30,8 +29,6 @@ export class UserListItemComponent implements OnInit, DoCheck {
   ) { }
 
   ngOnInit(): void {
-    this.getUserRoles()
-
     this.formGroup = new FormGroup<IUserItemForm>({
       email: new FormControl(this._user.email || '', {
         nonNullable: true,
@@ -42,34 +39,16 @@ export class UserListItemComponent implements OnInit, DoCheck {
       }),
       password: new FormControl(this.plugPassword, {
         nonNullable: true,
-        validators: [Validators.required]
+        validators: []
       }),
-      role: new FormControl('', {
+      role: new FormControl(this.getRole(), {
         nonNullable: true,
-        validators: [
-          Validators.required,
-          this.atLeastOneRoleSelectedValidator,
-        ]
+        validators: []
       }),
     })
-  }
 
-  ngDoCheck(): void {
-    this.changeFormStatus()
+    this.formGroup.disable();
   }
-
-  get email() {
-    return this.formGroup.get('email');
-  }
-
-  get password() {
-    return this.formGroup.get('password');
-  }
-
-  get role() {
-    return this.formGroup.get('role');
-  }
-
 
   @Input() set user(data: IUserlistItem) {
     this._user = data;
@@ -79,35 +58,12 @@ export class UserListItemComponent implements OnInit, DoCheck {
     return this._user;
   }
 
-  compareRoles(role1: Role, role2: Role): boolean {
-    return role1 && role2 ? role1 === role2 : role1 === role2;
-  }
-
-  changeFormStatus() {
-    if (!this.isEditing) {
-      this.formGroup.disable();
-    } else {
-      this.formGroup.enable();
-    }
-  }
-
-  atLeastOneRoleSelectedValidator = (control: AbstractControl): ValidationErrors | null => {
-    const roles = control.value;
-
-    if (Array.isArray(roles) && roles.length === 0) {
-      return { noRoleSelected: true };
+  getRole(): Role {
+    if (this._user.roles.some(role => role.name === Role.Admin)) {
+      return Role.Admin;
     }
 
-    return null;
-  };
-
-  getUserRoles() {
-    this.userRole.forEach(userRole => {
-      const roleExists = this._user.roles.some(role => role.name === userRole);
-      if (roleExists) {
-        this.hasRoles.push(userRole);
-      }
-    });
+    return Role.User
   }
 
   public deleteUser() {
@@ -116,46 +72,58 @@ export class UserListItemComponent implements OnInit, DoCheck {
   }
 
   public updateUserRole() {
-    // if (this.formGroup.invalid) {
-    //   Object.keys(this.formGroup.controls).forEach(control => this.formGroup.controls[control].markAsTouched());
-
-    //   return;
-    // }
-
     const id = this._user.id
-    const { role: name } = this.formGroup.getRawValue();
+    const { role } = this.formGroup.getRawValue();
+    let names = [];
 
-    // this.userService.updateUserRole(id, name.at(1))
+    if (role === Role.Admin) {
+      names = [
+        "ADMIN",
+        "USER"
+      ]
+    } else {
+      names = [
+        "USER"
+      ]
+    }
+
+    this.userService.updateUserRole(id, names)
   }
 
   public updateUserInfo() {
-    // if (this.formGroup.invalid) {
-    //   // Object.keys(this.formGroup.controls).forEach(control =>
-    //   //   this.formGroup.controls[control].markAsTouched()
-    //   // );
-    //   return;
-    // }
+    if (this.formGroup.invalid) {
+      console.log(this.formGroup.invalid);
 
-    this.isEditingToggle();
-
-    const { email, password } = this.formGroup.getRawValue();
-    console.log('email', email == this._user.email);
-    console.log('pass', password === this.plugPassword);
-    console.log(this.isEditing);
-
-    if (
-      email === this._user.email &&
-      password === this.plugPassword || password === '' &&
-      this.isEditing === false
-    ) {
       return;
     }
-    this.isEditingToggle();
 
-    if (this.isEditing) {
-      const id = this._user.id;
-      this.userService.updateUserInfo(id, email, password);
+    this.isEditingToggle()
+
+    if (this.isEditing === true) {
+      this.formGroup.enable();
+    } else {
+      this.formGroup.disable();
     }
+
+    const { email, password } = this.formGroup.getRawValue();
+
+    if (this.isEmailChanged(email) || this.isPasswordChanged(password)) {
+      this.plugPassword = password;
+      const id = this._user.id;
+
+      this.userService.updateUserInfo(id, email, password);
+
+      this.isEditing = false;
+      this.formGroup.disable();
+    }
+  }
+
+  private isPasswordChanged(pw: string) {
+    return pw !== this.plugPassword;
+  }
+
+  private isEmailChanged(email: string) {
+    return email !== this._user.email;
   }
 
   public isEditingToggle() {

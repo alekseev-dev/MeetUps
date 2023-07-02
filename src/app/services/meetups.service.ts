@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 import { APIRoute, AppRoute } from 'src/assets/const/common';
 import { adaptToClient, adaptToServer } from 'src/assets/utils/utils';
 import { environment } from 'src/environments/environment';
@@ -18,18 +18,23 @@ export class MeetupsService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { }
+  ) {
+    this.getMeetups();
+  }
 
   public getMeetups() {
-    return this.http
-      .get<IMeetupData[]>(`${environment.apiUrl}${APIRoute.Meetup}`)
-      .subscribe(
-        (meetups => {
-          this.meetupsSubject.next(adaptToClient(meetups));
-          console.log('data', adaptToClient(meetups));
-        })
-      )
-  };
+    this.fetchMeetups();
+
+    interval(30000)
+      .subscribe(() => this.fetchMeetups());
+  }
+
+  private fetchMeetups() {
+    this.http.get<IMeetupData[]>(`${environment.apiUrl}${APIRoute.Meetup}`)
+      .subscribe(meetups => {
+        this.meetupsSubject.next(adaptToClient(meetups));
+      });
+  }
 
   public createMeetup(meetup: TCreateMeetup) {
     const adaptedData = adaptToServer(meetup);

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-search-card-form',
@@ -9,16 +10,26 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class SearchCardFormComponent implements OnInit {
   public formGroup!: FormGroup;
+  private searchValueSubject = new Subject<string>();
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
       search: new FormControl('')
     });
+
+    this.searchValueSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+      )
+      .subscribe((searchValue => {
+        this.searchValue.emit(searchValue)
+      }))
   }
 
   @Output() searchValue = new EventEmitter<string>();
 
   onFormChange(): void {
-    this.searchValue.emit(this.formGroup.value.search);
+    this.searchValueSubject.next(this.formGroup.value.search);
   }
 }

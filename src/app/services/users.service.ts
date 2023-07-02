@@ -22,6 +22,8 @@ export class UsersService {
       .subscribe(
         (users => {
           this.usersSubject.next(users);
+          console.log(users);
+
         }))
   };
 
@@ -40,25 +42,31 @@ export class UsersService {
     return this.http
       .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { email, password })
       .subscribe(user => {
-        console.log(user);
-      })
-  };
+        const previousValue = this.usersSubject.getValue();
+        const index = previousValue.findIndex(item => item.id === id);
 
-  public updateUserRole(userId: number, name: string) {
-    console.log(name);
+        if (index !== -1) {
+          const updatedItem = {
+            ...previousValue[index],
+            email,
+          };
+
+          const newArray = [
+            ...previousValue.slice(0, index),
+            updatedItem,
+            ...previousValue.slice(index + 1),
+          ];
+
+          this.usersSubject.next(newArray);
+        }
+      });
+  }
+
+  public updateUserRole(userId: number, names: string[]) {
+    console.log({ names, userId });
 
     return this.http
-      .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.UserRole}`, { name, userId })
-      .subscribe(user => {
-        console.log(user);
-      })
+      .post<{ names: string[], userId: string }>(`${environment.apiUrl}${APIRoute.UserRole}`, { names, userId })
+      .subscribe()
   };
-
-  // public updateUserRole(id: number, email: string, password: string, fio: string) {
-  //   return this.http
-  //     .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { email, password, fio })
-  //     .subscribe(user => {
-  //       console.log(user);
-  //     })
-  // };
 }
