@@ -1,0 +1,15 @@
+@import "variables";
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 70px;
+}
+
+.not-found-title {
+  color: $accent-color;
+  font-family: $font-title;
+  font-size: 60px;
+  line-height: 25px;
+  letter-spacing: normal;
+}

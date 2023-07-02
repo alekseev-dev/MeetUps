@@ -36,9 +36,19 @@ export class UsersService {
       })
   };
 
-  public updateUserInfo(id: number, email: string, password: string, fio: string) {
+  public updateUserInfo(id: number, email: string, password: string) {
     return this.http
-      .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { email, password, fio })
+      .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { email, password })
+      .subscribe(user => {
+        console.log(user);
+      })
+  };
+
+  public updateUserRole(userId: number, name: string) {
+    console.log(name);
+
+    return this.http
+      .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.UserRole}`, { name, userId })
       .subscribe(user => {
         console.log(user);
       })

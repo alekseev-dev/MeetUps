@@ -12,7 +12,6 @@
       required
       autocomplete="off"
       formControlName="email"
-      [disabled]="!isEditing"
       matInput>
   </mat-form-field>
   <mat-form-field
@@ -20,24 +19,23 @@
     <input
       class="admin-input"
       [class]="isEditing ? 'user-list-form-email--active' : ''"
-      [value]="user.password"
+      [value]="!isEditing ? plugPassword : ''"
       [type]="isEditing ? 'text' : 'password'"
-      required
       autocomplete="off"
       formControlName="password"
-      [disabled]="!isEditing"
+      placeholder="Введите новый пароль"
       matInput>
   </mat-form-field>
   <mat-form-field
     class="user-list-form-status">
     <mat-select
       [class]="isEditing ? 'user-list-form-email--active' : ''"
-      [disabled]="!isEditing"
       required
       autocomplete="off"
       formControlName="role"
       [(ngModel)]="hasRoles"
       [compareWith]="compareRoles"
+      (selectionChange)="updateUserRole()"
       multiple>
       <mat-option
         *ngFor="let role of userRole; index as i"
@@ -67,7 +65,21 @@
   </div>
 </form>
 
-<!-- <mat-option
-*ngFor="let role of userRole" [value]="role">
-{{role | lowercase}}
-</mat-option> -->
+<!-- <mat-form-field
+    class="user-list-form-status">
+    <mat-select
+      [class]="isEditing ? 'user-list-form-email--active' : ''"
+      required
+      autocomplete="off"
+      formControlName="role"
+      [(ngModel)]="hasRoles"
+      [compareWith]="compareRoles"
+      (selectionChange)="updateUserRole()"
+      multiple>
+      <mat-option
+        *ngFor="let role of userRole; index as i"
+        [value]="role">
+        {{role | lowercase}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->

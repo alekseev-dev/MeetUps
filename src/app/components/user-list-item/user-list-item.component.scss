@@ -92,6 +92,7 @@
   background-color: transparent;
 }
 
+:host ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder,
 :host ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input,
 :host ::ng-deep .mdc-text-field--disabled .mdc-text-field__input,
 :host ::ng-deep .mat-mdc-select-value {
