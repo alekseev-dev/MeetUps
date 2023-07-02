@@ -6,6 +6,7 @@ import { APIRoute } from 'src/assets/const/common';
 import { AppRoute } from '../../assets/const/common';
 import { IUser } from '../interfaces/user';
 import { environment } from './../../environments/environment.development';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,13 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService,
   ) { }
 
   public login(email: string, password: string) {
+    this.loadingService.showGlobal();
+
     return this.http
       .post<{ token: string }>(`${environment.apiUrl}${APIRoute.AuthLogin}`, { email, password })
       .pipe(
@@ -30,6 +34,7 @@ export class AuthService {
             this.router.navigate([AppRoute.AllMeetups]);
           }
 
+          this.loadingService.hideGlobal();
           return null;
         })
       );
@@ -42,9 +47,15 @@ export class AuthService {
   }
 
   public registration(email: string, password: string, fio: string) {
-    console.log(email, password);
+    this.loadingService.showGlobal();
+
     return this.http
-      .post<{}>(`${environment.apiUrl}${APIRoute.AuthRegistration}`, { email, password, fio });
+      .post<{}>(`${environment.apiUrl}${APIRoute.AuthRegistration}`, { email, password, fio })
+      .pipe(
+        tap(_ => {
+          this.loadingService.hideGlobal()
+        })
+      );
   }
 
   public parseJwt(token: string) {

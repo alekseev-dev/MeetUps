@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
@@ -7,4 +7,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpinnerComponent {
+  private _diameter = 100;
+
+  @Input() set diameter(value: number) {
+    this._diameter = value;
+  }
+
+  get diameter(): number {
+    return this._diameter
+  }
 }

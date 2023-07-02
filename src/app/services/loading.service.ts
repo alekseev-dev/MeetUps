@@ -6,16 +6,26 @@ import { delay } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class LoadingService {
-  private _loading = new BehaviorSubject<boolean>(false);
-  public readonly loading$ = this._loading.asObservable().pipe(delay(1));
+  private _loadingGlobal = new BehaviorSubject<boolean>(false);
+  private _loadingLocal = new BehaviorSubject<boolean>(false);
+  public readonly loadingGlobal$ = this._loadingGlobal.asObservable().pipe(delay(1));
+  public readonly loadingLocal$ = this._loadingLocal.asObservable().pipe(delay(1));
 
   constructor() { }
 
-  show() {
-    this._loading.next(true);
+  showGlobal() {
+    this._loadingGlobal.next(true);
   }
 
-  hide() {
-    this._loading.next(false);
+  hideGlobal() {
+    this._loadingGlobal.next(false);
+  }
+
+  showLocal() {
+    this._loadingLocal.next(true);
+  }
+
+  hideLocal() {
+    this._loadingLocal.next(false);
   }
 }

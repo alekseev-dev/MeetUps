@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatChipsModule,
   ],
   exports: [
     MatIconModule,
@@ -39,6 +41,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatChipsModule,
   ]
 })
 export class MaterialModule { }

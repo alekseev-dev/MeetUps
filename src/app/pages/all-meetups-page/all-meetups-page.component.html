@@ -2,10 +2,11 @@
   class="all-meetups">
   <app-search-card-form
     class="search-form"
-    (searchValue)="onSearchValue($event)">
+    (searchParams)="onSearchParams($event)">
   </app-search-card-form>
   <app-meetups-list
-    [searchValue]="searchValue"></app-meetups-list>
+    [searchParams]="searchParams">
+  </app-meetups-list>
   <app-button
     class="create-button"
     [color]="'aqua'"

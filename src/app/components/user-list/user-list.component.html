@@ -1,6 +1,7 @@
 <ul>
   <app-user-list-item
     class="user-list-item"
+    [userService]="userService"
     *ngFor="let user of users$ | async;
    trackBy:identify"
     [user]="user">

@@ -26,6 +26,12 @@
   margin: 0;
 }
 
+@media (max-width: 1000px) {
+  .header-link-title {
+    font-size: 26px;
+  }
+}
+
 .header-logo-container {
   margin-right: 80px;
 }

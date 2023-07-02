@@ -20,7 +20,6 @@ import { NewUserModalWindowComponent } from './components/new-user-modal-window/
 import { SearchCardFormComponent } from './components/search-card-form/search-card-form.component';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { NetworkInterceptor } from "./interceptors/network.interceptor";
 import { AllMeetupsPageComponent } from './pages/all-meetups-page/all-meetups-page.component';
 import { CreateMeetupPageComponent } from './pages/create-meetup-page/create-meetup-page.component';
 import { InstructionPageComponent } from './pages/instruction-page/instruction-page.component';
@@ -28,9 +27,9 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { UserListPageComponent } from './pages/user-list-page/user-list-page.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { FilterDataByValue } from './pipes/filter-data-by-value.pipe';
 import { MaterialModule } from './shared/material/material.module';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { FilterDataPipe } from './pipes/filter-data.pipe';
 
 @NgModule({
   declarations: [
@@ -56,7 +55,7 @@ import { FilterDataPipe } from './pipes/filter-data.pipe';
     CreateMeetupComponent,
     CreateNewUserModalComponent,
     SpinnerComponent,
-    FilterDataPipe,
+    FilterDataByValue,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +68,6 @@ import { FilterDataPipe } from './pipes/filter-data.pipe';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

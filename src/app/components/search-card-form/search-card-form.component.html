@@ -2,17 +2,35 @@
   class="search-form"
   [formGroup]="formGroup"
   (input)="onFormChange()">
+  <mat-chip-listbox
+    formControlName="search-type">
+    <mat-chip-option
+      class="search-type-chip"
+      *ngFor="let value of selectedValue">
+      {{ value }}
+    </mat-chip-option>
+  </mat-chip-listbox>
   <mat-form-field
     class="search-form-control">
     <input
       type="text"
       matInput
-      placeholder="Название, ключевое слово, дата..."
-      formControlName="search">
-    <app-icon
-      class="search-form-icon"
-      matSuffix
-      iconName="search-icon">
-    </app-icon>
+      placeholder="Название, описание, дата..."
+      formControlName="search-value">
+    <div
+      class="logo-container">
+      <ng-container *ngIf="loading$ | async; else spinner">
+        <app-spinner
+          class="spinner"
+          [diameter]="40"></app-spinner>
+      </ng-container>
+      <ng-template #spinner>
+        <app-icon
+          class="search-form-icon"
+          matSuffix
+          iconName="search-icon">
+        </app-icon>
+      </ng-template>
+    </div>
   </mat-form-field>
 </form>

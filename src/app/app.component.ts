@@ -8,7 +8,7 @@ import { LoadingService } from './services/loading.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
-  loading$ = this.loadingService.loading$;
+  loading$ = this.loadingService.loadingGlobal$;
 
   constructor(
     private loadingService: LoadingService

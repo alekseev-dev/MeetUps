@@ -23,9 +23,9 @@ export class UserListItemComponent implements OnInit {
   private _user!: IUserlistItem;
   public formGroup!: FormGroup;
   public plugPassword = 'randompassword';
+  public _userService!: UsersService;
 
   constructor(
-    private userService: UsersService,
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +54,10 @@ export class UserListItemComponent implements OnInit {
     this._user = data;
   }
 
+  @Input() set userService(value: UsersService) {
+    this._userService = value;
+  }
+
   public get user() {
     return this._user;
   }
@@ -68,7 +72,7 @@ export class UserListItemComponent implements OnInit {
 
   public deleteUser() {
     const id = this._user.id;
-    this.userService.deleteUser(id)
+    this._userService.deleteUser(id)
   }
 
   public updateUserRole() {
@@ -87,7 +91,7 @@ export class UserListItemComponent implements OnInit {
       ]
     }
 
-    this.userService.updateUserRole(id, names)
+    this._userService.updateUserRole(id, names)
   }
 
   public updateUserInfo() {
@@ -111,7 +115,7 @@ export class UserListItemComponent implements OnInit {
       this.plugPassword = password;
       const id = this._user.id;
 
-      this.userService.updateUserInfo(id, email, password);
+      this._userService.updateUserInfo(id, email, password);
 
       this.isEditing = false;
       this.formGroup.disable();

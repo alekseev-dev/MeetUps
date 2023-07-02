@@ -18,14 +18,12 @@ interface ICreateUserForm {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateNewUserModalComponent {
-  public formGroup!: FormGroup<ICreateUserForm>;
+  public formGroup: FormGroup<ICreateUserForm>;
 
   constructor(
     public dialogRef: MatDialogRef<CreateNewUserModalComponent>,
     private authService: AuthService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.formGroup = new FormGroup<ICreateUserForm>({
       email: new FormControl('', {
         nonNullable: true,

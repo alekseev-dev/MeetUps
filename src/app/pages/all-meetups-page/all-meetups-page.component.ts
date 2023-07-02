@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ISearchParams } from 'src/app/interfaces/filter-data';
 import { AppRoute } from 'src/assets/const/common';
 
 @Component({
@@ -9,14 +10,17 @@ import { AppRoute } from 'src/assets/const/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllMeetupsPageComponent {
-  public searchValue = '';
+  public searchParams: ISearchParams = {
+    searchValue: '',
+    searchType: '',
+  };
 
   constructor(
     private router: Router,
   ) { }
 
-  onSearchValue(value: string) {
-    this.searchValue = value;
+  onSearchParams(value: ISearchParams) {
+    this.searchParams = value;
   }
 
   createMeetup() {

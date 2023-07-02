@@ -20,3 +20,9 @@ export enum Role {
   User = 'USER',
   Admin = 'ADMIN',
 }
+
+export enum FilterType {
+  Name = 'По названию',
+  Description = 'По описанию',
+  Date = 'По дате',
+}

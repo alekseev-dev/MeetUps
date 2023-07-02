@@ -36,7 +36,8 @@ export class CreateMeetupComponent {
 
   ngOnInit(): void {
     this.getCurrentTime();
-    this.getCurrentDate()
+    this.getCurrentDate();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     this.formGroup = new FormGroup<ICreateMeetupForm>({
       name: new FormControl(this._meetupData?.name || '', {

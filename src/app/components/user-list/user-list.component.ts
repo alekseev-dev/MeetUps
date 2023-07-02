@@ -13,11 +13,10 @@ export class UserListComponent implements OnInit {
   private _users$!: Observable<IUserlistItem[]>;
 
   constructor(
-    private userService: UsersService,
+    public userService: UsersService,
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUsers();
     this._users$ = this.userService.users$;
   }
 

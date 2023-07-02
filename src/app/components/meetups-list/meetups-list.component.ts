@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
+import { ISearchParams } from 'src/app/interfaces/filter-data';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
 import { IUser } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,7 +18,7 @@ import { AppRoute } from 'src/assets/const/common';
 export class MeetupsListComponent implements OnInit, OnChanges {
   private _meetups$?: Observable<IMeetupData[]>;
   private _user: IUser | null = null;
-  private _searchValue = '';
+  private _searchParams: ISearchParams | null = null;
 
   constructor(
     private meetupsService: MeetupsService,
@@ -30,16 +31,15 @@ export class MeetupsListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.meetupsService.getMeetups();
     this._user = this.authService.userValue;
   }
 
-  @Input() set searchValue(value: string) {
-    this._searchValue = value;
+  @Input() set searchParams(value: ISearchParams | null) {
+    this._searchParams = value;
   }
 
-  get searchValue() {
-    return this._searchValue
+  get searchParams() {
+    return this._searchParams
   }
 
   filterData(): void {

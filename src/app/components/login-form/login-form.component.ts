@@ -1,9 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppRoute } from 'src/assets/const/common';
+
+
+interface ILoginForm {
+  [key: string]: FormControl<string>;
+  email: FormControl<string>,
+  password: FormControl<string>,
+}
 
 @Component({
   selector: 'app-login-form',
@@ -11,11 +18,10 @@ import { AppRoute } from 'src/assets/const/common';
   styleUrls: ['./login-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
   public hide = true;
   public AppRoute = AppRoute;
-
-  public formGroup!: FormGroup;
+  public formGroup: FormGroup<ILoginForm>;
 
   constructor(
     private authService: AuthService,
@@ -24,17 +30,17 @@ export class LoginFormComponent implements OnInit {
     if (this.authService.userValue) {
       this.router.navigate([AppRoute.Root]);
     }
-  }
 
-  ngOnInit(): void {
-    this.formGroup = new FormGroup({
+    this.formGroup = new FormGroup<ILoginForm>({
       email: new FormControl('', {
+        nonNullable: true,
         validators: [
           Validators.required,
           Validators.email
         ],
       }),
       password: new FormControl('', {
+        nonNullable: true,
         validators: [
           Validators.required
         ],
@@ -56,7 +62,7 @@ export class LoginFormComponent implements OnInit {
 
       return;
     }
-    const { email, password } = this.formGroup.value;
+    const { email, password } = this.formGroup.getRawValue();
 
     this.authService.login(email, password)
       .pipe(take(1))

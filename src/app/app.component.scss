@@ -20,6 +20,10 @@ html {
   padding: 0;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 .root-wrapper {
   max-width: 1440px;
   display: flex;
