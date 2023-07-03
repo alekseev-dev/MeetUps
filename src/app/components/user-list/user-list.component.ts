@@ -13,10 +13,11 @@ export class UserListComponent implements OnInit {
   private _users$!: Observable<IUserlistItem[]>;
 
   constructor(
-    public userService: UsersService,
+    private userService: UsersService,
   ) { }
 
   ngOnInit(): void {
+    this.userService.getUsers();
     this._users$ = this.userService.users$;
   }
 
@@ -26,5 +27,17 @@ export class UserListComponent implements OnInit {
 
   public identify(index: number, item: IUserlistItem) {
     return item.id;
+  }
+
+  deleteUser(id: number) {
+    this.userService.deleteUser(id)
+  }
+
+  updateUserRole(id: number, names: string[]) {
+    this.userService.updateUserRole(id, names)
+  }
+
+  updateUserInfo(id: number, email: string, password: string) {
+    this.userService.updateUserInfo(id, email, password)
   }
 }

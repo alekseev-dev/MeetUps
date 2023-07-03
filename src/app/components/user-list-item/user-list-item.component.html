@@ -32,7 +32,7 @@
       [class]="isEditing ? 'user-list-form-email--active' : ''"
       autocomplete="off"
       formControlName="role"
-      (selectionChange)="updateUserRole()">
+      (selectionChange)="handleUpdateUserRole()">
       <mat-option
         *ngFor="let role of userRole; index as i"
         [value]="role">
@@ -45,7 +45,7 @@
     <button
       class="delete-button user-list-form-button"
       mat-button
-      (click)="deleteUser()">
+      (click)="handleDeleteUser()">
       <app-icon
         iconName="delete-icon">
       </app-icon>
@@ -53,7 +53,7 @@
     <button
       class="edit-button user-list-form-button"
       mat-button
-      (click)="updateUserInfo()">
+      (click)="handleUpdateUserInfo()">
       <app-icon
         iconName="edit-icon">
       </app-icon>

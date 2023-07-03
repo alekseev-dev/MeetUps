@@ -31,6 +31,7 @@ export class MeetupsListComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.meetupsService.getMeetups()
     this._user = this.authService.userValue;
   }
 

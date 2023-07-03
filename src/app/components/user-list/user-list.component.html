@@ -1,7 +1,9 @@
 <ul>
   <app-user-list-item
     class="user-list-item"
-    [userService]="userService"
+    [deleteUser]="deleteUser.bind(this)"
+    [updateUserRole]="updateUserRole.bind(this)"
+    [updateUserInfo]="updateUserInfo.bind(this)"
     *ngFor="let user of users$ | async;
    trackBy:identify"
     [user]="user">

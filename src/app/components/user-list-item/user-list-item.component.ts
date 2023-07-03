@@ -25,6 +25,10 @@ export class UserListItemComponent implements OnInit {
   public plugPassword = 'randompassword';
   public _userService!: UsersService;
 
+  private _deleteUser!: (id: number) => void;
+  private _updateUserRole!: (id: number, names: string[]) => void;
+  private _updateUserInfo!: (id: number, email: string, password: string) => void;
+
   constructor(
   ) { }
 
@@ -58,6 +62,18 @@ export class UserListItemComponent implements OnInit {
     this._userService = value;
   }
 
+  @Input() set deleteUser(method: (id: number) => void) {
+    this._deleteUser = method;
+  }
+
+  @Input() set updateUserRole(method: (id: number, names: string[]) => void) {
+    this._updateUserRole = method;
+  }
+
+  @Input() set updateUserInfo(method: (id: number, email: string, password: string) => void) {
+    this._updateUserInfo = method;
+  }
+
   public get user() {
     return this._user;
   }
@@ -70,12 +86,12 @@ export class UserListItemComponent implements OnInit {
     return Role.User
   }
 
-  public deleteUser() {
+  public handleDeleteUser() {
     const id = this._user.id;
-    this._userService.deleteUser(id)
+    this._deleteUser(id)
   }
 
-  public updateUserRole() {
+  public handleUpdateUserRole() {
     const id = this._user.id
     const { role } = this.formGroup.getRawValue();
     let names = [];
@@ -91,13 +107,11 @@ export class UserListItemComponent implements OnInit {
       ]
     }
 
-    this._userService.updateUserRole(id, names)
+    this._updateUserRole(id, names)
   }
 
-  public updateUserInfo() {
+  public handleUpdateUserInfo() {
     if (this.formGroup.invalid) {
-      console.log(this.formGroup.invalid);
-
       return;
     }
 
@@ -115,7 +129,7 @@ export class UserListItemComponent implements OnInit {
       this.plugPassword = password;
       const id = this._user.id;
 
-      this._userService.updateUserInfo(id, email, password);
+      this._updateUserInfo(id, email, password);
 
       this.isEditing = false;
       this.formGroup.disable();

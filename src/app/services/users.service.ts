@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subscription, interval } from 'rxjs';
+import { BehaviorSubject, Subscription, catchError, interval, throwError } from 'rxjs';
 import { APIRoute } from 'src/assets/const/common';
 import { IUserItemDelete, IUserlistItem } from '../interfaces/user';
 import { environment } from './../../environments/environment.development';
@@ -18,7 +18,6 @@ export class UsersService implements OnDestroy {
     private http: HttpClient,
     private loadingService: LoadingService
   ) {
-    this.getUsers();
   }
 
   public getUsers() {
@@ -28,7 +27,7 @@ export class UsersService implements OnDestroy {
       this.intervalSubscription.unsubscribe();
     }
 
-    interval(10000)
+    this.intervalSubscription = interval(100000)
       .subscribe(() => this.fetchUsers());
   }
 
@@ -37,6 +36,13 @@ export class UsersService implements OnDestroy {
 
     return this.http
       .get<IUserlistItem[]>(`${environment.apiUrl}${APIRoute.User}`)
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while fetch users:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(
         (users => {
           this.usersSubject.next(users);
@@ -45,8 +51,6 @@ export class UsersService implements OnDestroy {
   };
 
   ngOnDestroy(): void {
-    console.log('done');
-
     if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe();
     }
@@ -57,6 +61,13 @@ export class UsersService implements OnDestroy {
 
     return this.http
       .delete<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { body: { id } })
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while delete user:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(user => {
         const previousValue = this.usersSubject.getValue();
         const updatedValue = previousValue.filter(item => item.id !== user.id);
@@ -71,6 +82,13 @@ export class UsersService implements OnDestroy {
 
     return this.http
       .put<IUserItemDelete>(`${environment.apiUrl}${APIRoute.User}/${id}`, { email, password })
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while update user info:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(user => {
         const previousValue = this.usersSubject.getValue();
         const index = previousValue.findIndex(item => item.id === id);
@@ -98,6 +116,13 @@ export class UsersService implements OnDestroy {
 
     return this.http
       .post<{ names: string[], userId: string }>(`${environment.apiUrl}${APIRoute.UserRole}`, { names, userId })
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while update user role:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(_ => this.loadingService.hideGlobal())
   };
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subscription, interval } from 'rxjs';
+import { BehaviorSubject, Subscription, catchError, interval, throwError } from 'rxjs';
 import { APIRoute, AppRoute } from 'src/assets/const/common';
 import { adaptToClient, adaptToServer } from 'src/assets/utils/utils';
 import { environment } from 'src/environments/environment';
@@ -22,7 +22,6 @@ export class MeetupsService implements OnDestroy {
     private router: Router,
     private loadingService: LoadingService
   ) {
-    this.getMeetups();
   }
 
   public getMeetups() {
@@ -32,8 +31,25 @@ export class MeetupsService implements OnDestroy {
       this.intervalSubscription.unsubscribe();
     }
 
-    this.intervalSubscription = interval(10000)
+    this.intervalSubscription = interval(100000)
       .subscribe(() => this.fetchMeetups());
+  }
+
+  private fetchMeetups() {
+    this.loadingService.showGlobal();
+
+    this.http.get<IMeetupData[]>(`${environment.apiUrl}${APIRoute.Meetup}`)
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while fetch the meetups:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
+      .subscribe(meetups => {
+        this.meetupsSubject.next(adaptToClient(meetups));
+        this.loadingService.hideGlobal();
+      });
   }
 
   ngOnDestroy(): void {
@@ -42,21 +58,19 @@ export class MeetupsService implements OnDestroy {
     }
   }
 
-  private fetchMeetups() {
-    this.loadingService.showGlobal();
-    this.http.get<IMeetupData[]>(`${environment.apiUrl}${APIRoute.Meetup}`)
-      .subscribe(meetups => {
-        this.meetupsSubject.next(adaptToClient(meetups));
-        this.loadingService.hideGlobal();
-      });
-  }
-
   public createMeetup(meetup: TCreateMeetup) {
     this.loadingService.showGlobal();
     const adaptedData = adaptToServer(meetup);
 
     return this.http
       .post<IMeetupData>(`${environment.apiUrl}${APIRoute.Meetup}`, adaptedData)
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while creating the meetup:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(
         (meetups => {
           const previousValue = this.meetupsSubject.getValue();
@@ -77,6 +91,13 @@ export class MeetupsService implements OnDestroy {
 
     return this.http
       .put<IMeetupData>(`${environment.apiUrl}${APIRoute.Meetup}/${id}`, adaptedData)
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while saving the meetup:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(
         (patchedMeetupCard => {
           const previousValue = this.meetupsSubject.getValue();
@@ -99,6 +120,13 @@ export class MeetupsService implements OnDestroy {
 
     return this.http
       .delete<IMeetupData>(`${environment.apiUrl}${APIRoute.Meetup}/${id}`, { body: { id } })
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while deleting the meetup:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(
         (patchedMeetupCard => {
           const previousValue = this.meetupsSubject.getValue();
@@ -121,6 +149,13 @@ export class MeetupsService implements OnDestroy {
 
     return this.http
       .put<IMeetupData>(`${environment.apiUrl}${APIRoute.Meetup}`, { idMeetup, idUser })
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while subscribe to the meetup:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(
         (patchedMeetupCard => {
           const previousValue = this.meetupsSubject.getValue();
@@ -142,6 +177,13 @@ export class MeetupsService implements OnDestroy {
 
     return this.http
       .delete<IMeetupData>(`${environment.apiUrl}${APIRoute.Meetup}`, { body: { idMeetup, idUser } })
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred while unsubscribe to the meetup:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        })
+      )
       .subscribe(
         (patchedMeetupCard => {
           const previousValue = this.meetupsSubject.getValue();

@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs';
+import { take, tap } from 'rxjs';
 import { CreateMeetupComponent } from 'src/app/components/create-meetup/create-meetup.component';
 import { IMeetupData } from 'src/app/interfaces/meetup-data';
 
@@ -44,7 +44,8 @@ export class CreateMeetupPageComponent implements OnInit {
           this._isEditing = true;
         }
       }))
-      .subscribe()
+      .pipe(take(1))
+      .subscribe();
   }
 
 

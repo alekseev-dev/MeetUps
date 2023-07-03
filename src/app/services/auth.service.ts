@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { APIRoute } from 'src/assets/const/common';
 import { AppRoute } from '../../assets/const/common';
 import { IUser } from '../interfaces/user';
@@ -27,6 +27,11 @@ export class AuthService {
     return this.http
       .post<{ token: string }>(`${environment.apiUrl}${APIRoute.AuthLogin}`, { email, password })
       .pipe(
+        catchError((error) => {
+          console.error('An error occurred while login:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        }),
         tap(user => {
           if (user.token) {
             localStorage.setItem('auth_token', user.token);
@@ -52,6 +57,11 @@ export class AuthService {
     return this.http
       .post<{}>(`${environment.apiUrl}${APIRoute.AuthRegistration}`, { email, password, fio })
       .pipe(
+        catchError((error) => {
+          console.error('An error occurred while registration the meetups:', error.message);
+          this.loadingService.hideGlobal();
+          return throwError(() => error);
+        }),
         tap(_ => {
           this.loadingService.hideGlobal()
         })

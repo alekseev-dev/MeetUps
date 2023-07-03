@@ -37,25 +37,6 @@ export class CreateMeetupTextareaComponent {
     return this._id;
   }
 
-  writeValue(value: any): void {
-    // Set the value of the textarea from the external form control
-    // For example, if you want to update the textarea value programmatically
-    // you need to call this method
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouch = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    // Implement this method if you want to disable the textarea programmatically
-  }
-
-  // Add event handlers for input and blur events to capture changes in the textarea value
   onInput(event: any) {
     this.onChange(event.target.value);
   }
